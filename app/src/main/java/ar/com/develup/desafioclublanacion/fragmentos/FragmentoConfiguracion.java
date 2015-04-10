@@ -7,4 +7,6 @@ public abstract class FragmentoConfiguracion extends FragmentoBasico {
 
     public abstract boolean valido();
     public abstract void guardarCambios();
+    public abstract boolean tieneAdelante();
+    public abstract boolean tieneAtras();
 }

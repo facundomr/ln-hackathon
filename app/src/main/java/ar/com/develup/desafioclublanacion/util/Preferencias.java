@@ -24,4 +24,10 @@ public class Preferencias {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
         return sharedPreferences.contains(clave) && !sharedPreferences.getString(clave, "").trim().isEmpty();
     }
+
+    public static String obtenerString(Context context, String clave) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(clave, "");
+    }
 }

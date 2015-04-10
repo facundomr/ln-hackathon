@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.com.develup.desafioclublanacion.R;
-import ar.com.develup.desafioclublanacion.fragmentos.FragmentoBasico;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracion;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracionFinalizada;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoSeleccionCategoriasParaNotificar;
@@ -26,6 +25,7 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
     private FragmentoConfiguracionFinalizada fragmentoConfiguracionFinalizada = new FragmentoConfiguracionFinalizada();
     private int indiceFragmentoActual;
     private View siguiente;
+    private View anterior;
 
     private View.OnClickListener siguienteFragmento = new View.OnClickListener() {
         @Override
@@ -48,6 +48,17 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         }
     };
 
+    private View.OnClickListener fragmentoAnterior = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if (indiceFragmentoActual > 0) {
+                indiceFragmentoActual --;
+                colocarFragmento(fragmentos.get(indiceFragmentoActual));
+            }
+        }
+    };
+
     @Override
     protected int getLayout() {
         return R.layout.actividad_configuracion_inicial;
@@ -60,16 +71,38 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         this.siguiente = findViewById(R.id.avanzar);
         this.siguiente.setOnClickListener(this.siguienteFragmento);
 
+        this.anterior = findViewById(R.id.retroceder);
+        this.anterior.setOnClickListener(this.fragmentoAnterior);
+
         fragmentos.add(fragmentoSeleccionTarjeta);
         fragmentos.add(fragmentoSeleccionCategoriasParaNotificar);
         fragmentos.add(fragmentoConfiguracionFinalizada);
         colocarFragmento(fragmentos.get(indiceFragmentoActual));
     }
 
-    private void colocarFragmento(FragmentoBasico fragmentoBasico) {
+    private void colocarFragmento(FragmentoConfiguracion fragmentoConfiguracion) {
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.contenedor_fragmento, fragmentoBasico);
+        fragmentTransaction.replace(R.id.contenedor_fragmento, fragmentoConfiguracion);
         fragmentTransaction.commitAllowingStateLoss();
+
+        configurarAnteriorSiguiente(fragmentoConfiguracion);
+    }
+
+    private void configurarAnteriorSiguiente(FragmentoConfiguracion fragmentoConfiguracion) {
+
+        if (fragmentoConfiguracion.tieneAdelante()) {
+            this.siguiente.setVisibility(View.VISIBLE);
+        }
+        else {
+            this.siguiente.setVisibility(View.INVISIBLE);
+        }
+
+        if (fragmentoConfiguracion.tieneAtras()) {
+            this.anterior.setVisibility(View.VISIBLE);
+        }
+        else {
+            this.anterior.setVisibility(View.INVISIBLE);
+        }
     }
 }

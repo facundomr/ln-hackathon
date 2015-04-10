@@ -29,19 +29,16 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
         @Override
         public void onClick(View v) {
 
-            tarjetaPremium.setSelected(false);
-            tarjetaClasica.setSelected(true);
-            tarjetaSeleccionada = Tarjeta.CLASICA;
+            seleccionarTarjetaClasica();
 
         }
     };
+
     private View.OnClickListener seleccionarPremium = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
 
-            tarjetaClasica.setSelected(false);
-            tarjetaPremium.setSelected(true);
-            tarjetaSeleccionada = Tarjeta.PREMIUM;
+            seleccionarTarjetaPremium();
         }
     };
 
@@ -67,6 +64,24 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
         configurarFuentes();
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
+        if (Preferencias.existeString(getActivity(), Preferencias.TARJETA)) {
+
+            tarjetaSeleccionada = Tarjeta.valueOf(Preferencias.obtenerString(getActivity(), Preferencias.TARJETA));
+
+            if (tarjetaSeleccionada == Tarjeta.PREMIUM) {
+                seleccionarTarjetaPremium();
+            }
+            else if (tarjetaSeleccionada == Tarjeta.CLASICA) {
+                seleccionarTarjetaClasica();
+            }
+        }
+    }
+
     private void configurarFuentes() {
 
         Context context = getActivity();
@@ -74,7 +89,6 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
         FuentesUtil.aplicarFuente(HELVETICA_MEDIUM, (TextView) getView().findViewById(R.id.nombre_aplicacion), context);
         FuentesUtil.aplicarFuente(HELVETICA_LIGHT, (TextView) getView().findViewById(R.id.descripcion_aplicacion), context);
         FuentesUtil.aplicarFuente(HELVETICA_LIGHT, (TextView) getView().findViewById(R.id.selecciona_tarjetas), context);
-
     }
 
     @Override
@@ -102,6 +116,16 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
         }
     }
 
+    @Override
+    public boolean tieneAdelante() {
+        return true;
+    }
+
+    @Override
+    public boolean tieneAtras() {
+        return false;
+    }
+
     private void guardarTarjetaSeleccionada() {
 
         Preferencias.guardar(getActivity(), Preferencias.TARJETA, String.valueOf(tarjetaSeleccionada));
@@ -113,5 +137,17 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
                 .content(getString(R.string.selecciona_tarjeta_para_continuar))
                 .positiveText(R.string.aceptar)
                 .show();
+    }
+
+    private void seleccionarTarjetaPremium() {
+        tarjetaClasica.setSelected(false);
+        tarjetaPremium.setSelected(true);
+        tarjetaSeleccionada = Tarjeta.PREMIUM;
+    }
+
+    private void seleccionarTarjetaClasica() {
+        tarjetaPremium.setSelected(false);
+        tarjetaClasica.setSelected(true);
+        tarjetaSeleccionada = Tarjeta.CLASICA;
     }
 }

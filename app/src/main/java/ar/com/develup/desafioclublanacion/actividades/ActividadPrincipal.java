@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import ar.com.develup.desafioclublanacion.R;
-import ar.com.develup.desafioclublanacion.util.Preferencias;
 
 public class ActividadPrincipal extends ActividadBasica {
 
@@ -38,6 +37,8 @@ public class ActividadPrincipal extends ActividadBasica {
     }
 
     private boolean hayTarjetaSeleccionada() {
-        return Preferencias.existeString(this,Preferencias.TARJETA);
+
+        return false;
+        //return Preferencias.existeString(this, Preferencias.TARJETA);
     }
 }

@@ -6,5 +6,6 @@
     <string name="selecciona_tarjeta">Seleccioná tu tarjeta</string>
     <string name="selecciona_tarjeta_para_continuar">Selecciona una tarjeta para continuar</string>
     <string name="aceptar">Aceptar</string>
+    <string name="selecciona_categorias">Selecciona las categorias para las cuales te gustaria recibir notificaciones de beneficios cercanos</string>
 
 </resources>

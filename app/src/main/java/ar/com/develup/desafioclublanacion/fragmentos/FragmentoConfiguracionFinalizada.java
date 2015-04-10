@@ -26,4 +26,14 @@ public class FragmentoConfiguracionFinalizada extends FragmentoConfiguracion {
     public void guardarCambios() {
 
     }
+
+    @Override
+    public boolean tieneAdelante() {
+        return true;
+    }
+
+    @Override
+    public boolean tieneAtras() {
+        return true;
+    }
 }
