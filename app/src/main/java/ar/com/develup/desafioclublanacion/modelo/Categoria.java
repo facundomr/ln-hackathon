@@ -20,6 +20,7 @@ public enum Categoria {
 
     Categoria(int nombreResId, int colorResId) {
         this.nombreResId = nombreResId;
+        this.colorResId = colorResId;
     }
 
     public Categoria getPorNombre(Context context, String nombre) {

@@ -3,9 +3,11 @@ package ar.com.develup.desafioclublanacion.fragmentos;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import ar.com.develup.desafioclublanacion.R;
+import ar.com.develup.desafioclublanacion.adapter.CategoriaAdapter;
 import ar.com.develup.desafioclublanacion.util.FuentesUtil;
 
 import static ar.com.develup.desafioclublanacion.util.FuentesUtil.Fuente.HELVETICA_LIGHT;
@@ -14,6 +16,9 @@ import static ar.com.develup.desafioclublanacion.util.FuentesUtil.Fuente.HELVETI
  * Created by mmaisano on 10/04/15.
  */
 public class FragmentoSeleccionCategoriasParaNotificar extends FragmentoConfiguracion {
+
+    private ListView categoriasListView;
+    private CategoriaAdapter categoriaAdapter;
 
     @Override
     protected int getLayout() {
@@ -25,6 +30,10 @@ public class FragmentoSeleccionCategoriasParaNotificar extends FragmentoConfigur
         super.onViewCreated(view, savedInstanceState);
 
         configurarFuentes();
+
+        this.categoriasListView = (ListView) view.findViewById(R.id.categorias_listview);
+        this.categoriaAdapter = new CategoriaAdapter();
+        this.categoriasListView.setAdapter(categoriaAdapter);
     }
 
     private void configurarFuentes() {

@@ -4,8 +4,8 @@
     <string name="bienvenido_a">Bienvenido a</string>
     <string name="descripcion_aplicacion">Con la aplicación podrás recibir notificaciones de los beneficios que encontremos a tu alrededor</string>
     <string name="selecciona_tarjeta">Seleccioná tu tarjeta</string>
-    <string name="selecciona_tarjeta_para_continuar">Selecciona una tarjeta para continuar</string>
+    <string name="selecciona_tarjeta_para_continuar">Debes seleccionar una tarjeta para continuar</string>
     <string name="aceptar">Aceptar</string>
-    <string name="selecciona_categorias">Selecciona las categorias para las cuales te gustaria recibir notificaciones de beneficios cercanos</string>
+    <string name="selecciona_categorias">Seleccioná las categorías para las cuales te gustaría recibir notificaciones de beneficios cercanos</string>
 
 </resources>
