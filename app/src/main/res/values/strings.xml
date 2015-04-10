@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">DesafioClubLaNacion</string>
+    <string name="app_name">Club La Nación</string>
     <string name="title_activity_actividad_principal">ActividadPrincipal</string>
+    <string name="bienvenido_a">Bienvenido a</string>
+    <string name="descripcion_aplicacion">Con la aplicación podrás recibir notificaciones de los beneficios que encontremos a tu alrededor</string>
+    <string name="selecciona_tarjeta">Seleccioná tu tarjeta</string>
+    <string name="selecciona_tarjeta_para_continuar">Selecciona una tarjeta para continuar</string>
+    <string name="aceptar">Aceptar</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
 </resources>

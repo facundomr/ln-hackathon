@@ -5,7 +5,7 @@ import ar.com.develup.desafioclublanacion.R;
 /**
  * Created by mmaisano on 10/04/15.
  */
-public class FragmentoConfiguracionFinalizada extends FragmentoBasico {
+public class FragmentoConfiguracionFinalizada extends FragmentoConfiguracion {
 
     @Override
     protected int getLayout() {
@@ -15,5 +15,15 @@ public class FragmentoConfiguracionFinalizada extends FragmentoBasico {
     @Override
     public String getTitulo() {
         return "";
+    }
+
+    @Override
+    public boolean valido() {
+        return true;
+    }
+
+    @Override
+    public void guardarCambios() {
+
     }
 }
