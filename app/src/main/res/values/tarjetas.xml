@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="tarjeta_premium">Premium</string>
+    <string name="tarjeta_clasica">Clasica</string>
+    <string name="tarjeta_ninguna">Ninguna</string>
+
+</resources>
