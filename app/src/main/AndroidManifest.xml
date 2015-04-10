@@ -17,7 +17,7 @@
         android:theme="@style/ClubLaNacionTheme" >
         <activity
             android:name=".actividades.ActividadPrincipal"
-            android:label="@string/title_activity_actividad_principal"
+            android:label="@string/app_name"
             android:screenOrientation="portrait" >
             
             <intent-filter>
