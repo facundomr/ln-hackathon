@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="gastronomia">Gastronomia</string>
+    <string name="gastronomia">Gastronomía</string>
     <string name="entretenimiento">Entretenimiento</string>
     <string name="turismo">Turismo</string>
     <string name="cuidado_personal">Cuidado personal</string>
     <string name="moda">Moda</string>
-    <string name="mas_categorias">Mas categorías</string>
+    <string name="mas_categorias">Más categorías</string>
+
+    <string name="gastronomia_api">Gastronomía</string>
+    <string name="entretenimiento_api">Entretenimiento</string>
+    <string name="turismo_api">Turismo</string>
+    <string name="cuidado_personal_api">Cuidado personal</string>
+    <string name="moda_api">Moda</string>
+    <string name="mas_categorias_api">Más categorías</string>
 
 </resources>

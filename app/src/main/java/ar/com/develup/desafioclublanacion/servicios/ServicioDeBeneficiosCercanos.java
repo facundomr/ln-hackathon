@@ -32,10 +32,15 @@ import java.util.TimerTask;
 
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
 import ar.com.develup.desafioclublanacion.api.ClubLaNacionAPI;
+import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeCategoria;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeFecha;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDePunto;
+import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeTarjetas;
 import ar.com.develup.desafioclublanacion.modelo.Beneficio;
+import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Punto;
+import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
+import ar.com.develup.desafioclublanacion.modelo.Tarjetas;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
 public class ServicioDeBeneficiosCercanos extends Service {
@@ -124,6 +129,15 @@ public class ServicioDeBeneficiosCercanos extends Service {
                         GsonBuilder gsonBuilder = new GsonBuilder();
                         gsonBuilder.registerTypeAdapter(Date.class, new DeserializadorDeFecha());
                         gsonBuilder.registerTypeAdapter(Punto.class, new DeserializadorDePunto());
+
+                        DeserializadorDeTarjetas deserializadorDeTarjetas = new DeserializadorDeTarjetas();
+                        deserializadorDeTarjetas.setContext(ServicioDeBeneficiosCercanos.this);
+                        gsonBuilder.registerTypeAdapter(Tarjetas.class, deserializadorDeTarjetas);
+
+                        DeserializadorDeCategoria deserializadorDeCategoria = new DeserializadorDeCategoria();
+                        deserializadorDeCategoria.setContext(ServicioDeBeneficiosCercanos.this);
+                        gsonBuilder.registerTypeAdapter(Categoria.class, deserializadorDeCategoria);
+
                         Gson gson = gsonBuilder.create();
 
                         Log.i(LOG_TAG, "Beneficios cercanos: " + jsonArray);

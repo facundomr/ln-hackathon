@@ -1,19 +1,20 @@
 package ar.com.develup.desafioclublanacion.modelo;
 
-public class Establecimiento {
+import java.io.Serializable;
 
-    private String id;
+public class Establecimiento implements Serializable {
+
+    private Long id;
     private String sucursal;
     private String nombre;
-    private String descripcion;
     private String direccion;
     private String detalle;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -31,14 +32,6 @@ public class Establecimiento {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public String getDireccion() {

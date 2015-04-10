@@ -2,7 +2,12 @@
 <resources>
 
     <string name="tarjeta_premium">Premium</string>
+    <string name="tarjeta_premium_api">Premium</string>
+
     <string name="tarjeta_clasica">Clasica</string>
+    <string name="tarjeta_clasica_api">Classic</string>
+
     <string name="tarjeta_ninguna">Ninguna</string>
+    <string name="tarjeta_ninguna_api">Ninguna</string>
 
 </resources>
