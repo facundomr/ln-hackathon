@@ -9,13 +9,9 @@ import java.util.List;
 public class Beneficio implements Serializable {
 
     private String id;
-
     @SerializedName("point")
     private Punto punto;
-
-    // Esto viene así nombre=44265.jpg:Tipo=2:Great=0-nombre=I733649.jpg:Tipo=15:Great=0
-    //private String urlImagen;
-
+    private String imagen;
     private Date desde;
     private Date hasta;
     private Establecimiento establecimiento;
@@ -37,16 +33,6 @@ public class Beneficio implements Serializable {
     public void setPunto(Punto punto) {
         this.punto = punto;
     }
-
-    /*
-    public String getUrlImagen() {
-        return urlImagen;
-    }
-
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
-    }
-    */
 
     public Date getDesde() {
         return desde;
@@ -71,4 +57,30 @@ public class Beneficio implements Serializable {
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
     }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getUrlImagen() {
+
+        String campoEncontrado = "";
+
+        String[] campos = this.imagen.split(":");
+        for (String campo : campos) {
+            if (campo.contains("nombre=")) {
+
+                campoEncontrado = campo;
+            }
+        }
+
+        String[] labelYNombre = campoEncontrado.split("=");
+
+        return "http://club.lanacion.com.ar/imagenes/" + labelYNombre[labelYNombre.length - 1];
+    }
+
 }
