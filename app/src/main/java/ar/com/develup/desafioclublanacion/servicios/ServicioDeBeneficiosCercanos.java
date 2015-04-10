@@ -18,17 +18,24 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
 import ar.com.develup.desafioclublanacion.api.ClubLaNacionAPI;
+import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeFecha;
+import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDePunto;
+import ar.com.develup.desafioclublanacion.modelo.Beneficio;
+import ar.com.develup.desafioclublanacion.modelo.Punto;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
 public class ServicioDeBeneficiosCercanos extends Service {
@@ -115,32 +122,18 @@ public class ServicioDeBeneficiosCercanos extends Service {
                     public void onResponse(JSONArray jsonArray) {
 
                         GsonBuilder gsonBuilder = new GsonBuilder();
-                        //gsonBuilder.registerTypeAdapter(Date.class, new DateDeserializer());
+                        gsonBuilder.registerTypeAdapter(Date.class, new DeserializadorDeFecha());
+                        gsonBuilder.registerTypeAdapter(Punto.class, new DeserializadorDePunto());
                         Gson gson = gsonBuilder.create();
 
                         Log.i(LOG_TAG, "Beneficios cercanos: " + jsonArray);
 
-                        /*
-                        try {
-
-                            JSONObject data = jsonObject.getJSONObject("data");
-
-                            event = gson.fromJson(data.toString(), Event.class);
-
-                            Log.i(LOG_TAG, "Received Event: " + event);
-                            showEvent(event);
-
-                            progressBar.setVisibility(View.GONE);
+                        Type collectionType = new TypeToken<List<Beneficio>>() {}.getType();
+                        List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
 
 
-
-                        } catch (JSONException e) {
-
-                            e.printStackTrace();
-                            Log.e(LOG_TAG, "Error parsing the Event response: " + jsonObject.toString());
-                        }
-                          */
-
+                        Beneficio beneficio = beneficios.get(0);
+                        Log.i(LOG_TAG, "Primer beneficio" + beneficio);
                     }
                 },
                         new Response.ErrorListener() {

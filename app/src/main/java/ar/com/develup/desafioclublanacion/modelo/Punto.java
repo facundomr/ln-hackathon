@@ -1,6 +1,8 @@
 package ar.com.develup.desafioclublanacion.modelo;
 
-public class Punto {
+import java.io.Serializable;
+
+public class Punto implements Serializable {
 
     private double latitud;
     private double longitud;
