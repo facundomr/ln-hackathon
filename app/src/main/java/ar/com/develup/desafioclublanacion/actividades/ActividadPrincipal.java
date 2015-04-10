@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import ar.com.develup.desafioclublanacion.R;
-import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 public class ActividadPrincipal extends ActividadBasica {
 
@@ -24,12 +23,22 @@ public class ActividadPrincipal extends ActividadBasica {
 
             Intent intent = new Intent(this, ActividadConfiguracionInicial.class);
             startActivity(intent);
+            finish();
         }
     }
 
     private boolean hayConfiguracion() {
 
-        //TODO:Immplementar
+        return hayTarjetaSeleccionada() && hayCategoriasSeleccionadas();
+    }
+
+    private boolean hayCategoriasSeleccionadas() {
+        return true;
+    }
+
+    private boolean hayTarjetaSeleccionada() {
+
         return false;
+        //return Preferencias.existeString(this, Preferencias.TARJETA);
     }
 }
