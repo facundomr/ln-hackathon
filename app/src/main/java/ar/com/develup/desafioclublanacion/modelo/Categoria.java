@@ -6,11 +6,14 @@ import ar.com.develup.desafioclublanacion.R;
 
 public enum Categoria {
 
-    /**
-    PREMIUM(R.string.tarjeta_premium),
-    CLASICA(R.string.tarjeta_clasica),
-    NINGUNA(R.string.tarjeta_ningunaf),
-    ;*/
+
+    GASTRONOMIA(R.string.gastronomia, R.color.gastronomia),
+    ENTRETENIMIENTO(R.string.entretenimiento, R.color.entretenimiento),
+    TURISMO(R.string.turismo, R.color.turismo),
+    CUIDADO_PERSONAL(R.string.cuidado_personal, R.color.cuidado_personal),
+    MODA(R.string.moda, R.color.moda),
+    MAS_CATEGORIAS(R.string.mas_categorias, R.color.mas_categorias),
+    ;
 
     private int nombreResId;
     private int colorResId;

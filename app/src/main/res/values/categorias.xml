@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="gastronomia">Gastronomia</string>
+    <string name="entretenimiento">Entretenimiento</string>
+    <string name="turismo">Turismo</string>
+    <string name="cuidado_personal">Cuidado personal</string>
+    <string name="moda">Moda</string>
+    <string name="mas_categorias">Mas categorías</string>
+
+</resources>
