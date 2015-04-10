@@ -2,6 +2,7 @@ package ar.com.develup.desafioclublanacion.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import static ar.com.develup.desafioclublanacion.util.FuentesUtil.Fuente.HELVETI
  */
 public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
 
+    private static final String LOG_TAG = FragmentoSeleccionTarjeta.class.getSimpleName();
     private Tarjeta tarjetaSeleccionada = Tarjeta.NINGUNA;
     private View tarjetaClasica;
     private View tarjetaPremium;
@@ -89,6 +91,8 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
 
     @Override
     public void guardarCambios() {
+
+        Log.i(LOG_TAG, "Guardando cambios");
 
         if (tarjetaSeleccionada == Tarjeta.NINGUNA) {
             mostrarDialogoSeleccionarTarjeta();

@@ -31,7 +31,11 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         @Override
         public void onClick(View v) {
 
-            if (fragmentos.get(indiceFragmentoActual).valido()) {
+            FragmentoConfiguracion fragmentoActual = fragmentos.get(indiceFragmentoActual);
+
+            if (fragmentoActual.valido()) {
+
+                fragmentoActual.guardarCambios();
 
                 if (indiceFragmentoActual < fragmentos.size() - 1) {
                     indiceFragmentoActual ++;
