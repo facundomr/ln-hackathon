@@ -18,6 +18,7 @@ public enum Categoria {
     private int nombreResId;
     private int nombreApiResId;
     private int colorResId;
+    private boolean seleccionadaParaNotificaciones;
 
     Categoria(int nombreResId, int nombreApiResId, int colorResId) {
         this.nombreResId = nombreResId;
@@ -64,4 +65,11 @@ public enum Categoria {
         return this.colorResId;
     }
 
+    public boolean isSeleccionadaParaNotificaciones() {
+        return seleccionadaParaNotificaciones;
+    }
+
+    public void setSeleccionadaParaNotificaciones(boolean seleccionadaParaNotificaciones) {
+        this.seleccionadaParaNotificaciones = seleccionadaParaNotificaciones;
+    }
 }

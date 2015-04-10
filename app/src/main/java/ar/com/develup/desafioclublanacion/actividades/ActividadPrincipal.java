@@ -33,7 +33,8 @@ public class ActividadPrincipal extends ActividadBasica {
     }
 
     private boolean hayCategoriasSeleccionadas() {
-        return true;
+        return false;
+        //return Preferencias.existeString(this, Preferencias.CATEGORIAS_NOTIFICACION);
     }
 
     private boolean hayTarjetaSeleccionada() {

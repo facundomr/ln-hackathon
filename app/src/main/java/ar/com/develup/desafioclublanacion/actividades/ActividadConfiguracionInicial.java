@@ -52,6 +52,9 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         @Override
         public void onClick(View v) {
 
+            FragmentoConfiguracion fragmentoActual = fragmentos.get(indiceFragmentoActual);
+            fragmentoActual.guardarCambios();
+
             if (indiceFragmentoActual > 0) {
                 indiceFragmentoActual --;
                 colocarFragmento(fragmentos.get(indiceFragmentoActual));
