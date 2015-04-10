@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import ar.com.develup.desafioclublanacion.R;
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 public class ActividadPrincipal extends ActividadBasica {
 
