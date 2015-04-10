@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="azul_club">#005B96</color>
+    <color name="celeste_club">#107C99</color>
+    <color name="azul_oscuro_club">#0f2645</color>
+    <color name="gris_bordes">#3b475c</color>
+    <color name="gris_claro_bordes">#818282</color>
+    <color name="gris_contenedor">#e0e0e0</color>
+
+    <!-- Categorias -->
+    <color name="gastronomia">#f39200</color>
+    <color name="entretenimiento">#951b81</color>
+    <color name="turismo">#387738</color>
+    <color name="cuidado_personal">#39bed6</color>
+    <color name="mas_categorias">#fc2c03</color>
+    <color name="moda">#e72b71</color>
+
+</resources>
