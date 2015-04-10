@@ -80,7 +80,7 @@ public class Beneficio implements Serializable {
 
         String[] labelYNombre = campoEncontrado.split("=");
 
-        return labelYNombre[1];
+        return "http://club.lanacion.com.ar/imagenes/" + labelYNombre[labelYNombre.length - 1];
     }
 
 }

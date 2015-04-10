@@ -140,14 +140,15 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
                         Gson gson = gsonBuilder.create();
 
-                        Log.i(LOG_TAG, "Beneficios cercanos: " + jsonArray);
-
                         Type collectionType = new TypeToken<List<Beneficio>>() {}.getType();
                         List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
 
 
                         Beneficio beneficio = beneficios.get(0);
-                        Log.i(LOG_TAG, "Primer beneficio" + beneficio);
+
+                        for (Beneficio b : beneficios) {
+                            Log.i(LOG_TAG, "Primer beneficio IMAGEN " + b.getUrlImagen());
+                        }
                     }
                 },
                         new Response.ErrorListener() {
