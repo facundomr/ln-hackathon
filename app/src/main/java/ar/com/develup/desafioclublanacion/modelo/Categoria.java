@@ -9,7 +9,7 @@ public enum Categoria {
     /**
     PREMIUM(R.string.tarjeta_premium),
     CLASICA(R.string.tarjeta_clasica),
-    NINGUNA(R.string.tarjeta_ninguna),
+    NINGUNA(R.string.tarjeta_ningunaf),
     ;*/
 
     private int nombreResId;
