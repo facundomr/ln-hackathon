@@ -10,6 +10,7 @@
 
 
     <application
+        android:name=".ClubLaNacionApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,16 +28,16 @@
 
         <activity android:name=".actividades.ActividadConfiguracionInicial"
             android:screenOrientation="portrait"/>
+
+        <service
+            android:name=".servicios.ServicioDeBeneficiosCercanos"
+            android:enabled="true" />
+
+        <receiver android:name="servicios.TelefonoEncendido" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
-    <service
-        android:name=".servicios.ServicioDeBeneficiosCercanos"
-        android:enabled="true" />
-
-    <receiver android:name="servicios.TelefonoEncendido" >
-        <intent-filter>
-            <action android:name="android.intent.action.BOOT_COMPLETED" />
-        </intent-filter>
-    </receiver>
-    
 </manifest>

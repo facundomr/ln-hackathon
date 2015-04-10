@@ -1,5 +1,6 @@
 package ar.com.develup.desafioclublanacion.actividades;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
@@ -7,6 +8,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import ar.com.develup.desafioclublanacion.R;
 import ar.com.develup.desafioclublanacion.adaptadores.ConfiguracionInicialAdapter;
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 /**
  * Created by mmaisano on 10/04/15.

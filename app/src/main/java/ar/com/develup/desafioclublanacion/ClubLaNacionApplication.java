@@ -2,6 +2,7 @@ package ar.com.develup.desafioclublanacion;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.widget.ImageView;
@@ -11,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 import hotchemi.android.rate.AppRate;
 
 public class  ClubLaNacionApplication extends Application {
@@ -22,6 +24,9 @@ public class  ClubLaNacionApplication extends Application {
         super.onCreate();
         configurarRateUs();
         configurarUniversalImageLoader();
+
+        Intent servicio = new Intent(this, ServicioDeBeneficiosCercanos.class);
+        this.startService(servicio);
     }
 
     private void configurarUniversalImageLoader() {
