@@ -1,6 +1,7 @@
 package ar.com.develup.desafioclublanacion.fragmentos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
@@ -13,6 +14,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.Calendar;
 
 import ar.com.develup.desafioclublanacion.R;
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 import ar.com.develup.desafioclublanacion.util.DistanciaUtil;
 import ar.com.develup.desafioclublanacion.util.FuentesUtil;
 import ar.com.develup.desafioclublanacion.util.Preferencias;
@@ -341,6 +343,9 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
         Preferencias.guardarNotificacionesMaximas(getActivity(), this.maximasNotificaciones);
         Preferencias.guardarNotificacionesDesde(getActivity(), this.desdeHora);
         Preferencias.guardarNotificacionesHasta(getActivity(), this.hastaHora);
+
+        getActivity().stopService(new Intent(getActivity(), ServicioDeBeneficiosCercanos.class));
+        getActivity().startService(new Intent(getActivity(), ServicioDeBeneficiosCercanos.class));
     }
 
     @Override
