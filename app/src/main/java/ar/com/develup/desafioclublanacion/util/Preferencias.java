@@ -9,6 +9,8 @@ import com.google.gson.reflect.TypeToken;
 import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
+import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 /**
  * Created by mmaisano on 10/04/15.
@@ -48,8 +50,14 @@ public class Preferencias {
     public static Set<Categoria> obtenerCategorias(Context context) {
 
         String json = obtenerString(context, CATEGORIAS_NOTIFICACION);
-        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>(){}.getType());
+        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {
+        }.getType());
 
         return categorias;
+    }
+
+    public static Tarjeta obtenerTarjeta(Context context) {
+
+        return Tarjeta.valueOf(Preferencias.obtenerString(context, Preferencias.TARJETA));
     }
 }

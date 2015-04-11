@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import java.lang.reflect.Type;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
 import ar.com.develup.desafioclublanacion.R;
@@ -37,7 +38,9 @@ import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeT
 import ar.com.develup.desafioclublanacion.modelo.Beneficio;
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Punto;
+import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
 import ar.com.develup.desafioclublanacion.modelo.Tarjetas;
+import ar.com.develup.desafioclublanacion.util.Preferencias;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
 public class ServicioDeBeneficiosCercanos extends Service {
@@ -164,8 +167,13 @@ public class ServicioDeBeneficiosCercanos extends Service {
                     Log.i(LOG_TAG, "Beneficios obtenidos " + beneficios.size());
 
 
-                    String distanciaString = calcularDistancia(beneficios.get(0), ubicacionDelUsuario);
-                    mostrarNotificacion(beneficios.get(0), distanciaString);
+                    Beneficio relevante = buscarBeneficioRelevante(beneficios, ubicacionDelUsuario);
+
+                    if (relevante != null) {
+
+                        String distanciaString = calcularDistancia(relevante, ubicacionDelUsuario);
+                        mostrarNotificacion(relevante, distanciaString);
+                    }
 
                 }
             },
@@ -180,6 +188,30 @@ public class ServicioDeBeneficiosCercanos extends Service {
             SingletonRequestQueue.getInstance(ServicioDeBeneficiosCercanos.this).addToRequestQueue(jsonArrayRequest);
 
             }
+    }
+
+    private Beneficio buscarBeneficioRelevante(List<Beneficio> beneficios, Location ubicacionDelUsuario) {
+
+        Beneficio beneficioAMostrar = null;
+
+        if(Preferencias.existeString(this, Preferencias.CATEGORIAS_NOTIFICACION)
+                && Preferencias.existeString(this, Preferencias.TARJETA)) {
+
+            Set<Categoria> categoriasDelUsuario = Preferencias.obtenerCategorias(ServicioDeBeneficiosCercanos.this);
+            Tarjeta tarjetaDelusuario = Preferencias.obtenerTarjeta(ServicioDeBeneficiosCercanos.this);
+
+
+            for (int i = 0; i < beneficios.size() && beneficioAMostrar == null; i++) {
+                Beneficio unBeneficio = beneficios.get(i);
+
+                if (categoriasDelUsuario.contains(unBeneficio.getDetalle().getCategoria())
+                        && unBeneficio.getDetalle().getTarjetas().getTarjetas().contains(tarjetaDelusuario)) {
+                    beneficioAMostrar = unBeneficio;
+                }
+            }
+        }
+
+        return beneficioAMostrar;
     }
 
     private String calcularDistancia(Beneficio beneficio, Location ubicacionDelUsuario) {
