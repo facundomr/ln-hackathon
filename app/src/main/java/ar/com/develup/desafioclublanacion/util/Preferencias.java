@@ -52,7 +52,8 @@ public class Preferencias {
     public static Set<Categoria> obtenerCategorias(Context context) {
 
         String json = obtenerString(context, CATEGORIAS_NOTIFICACION);
-        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {}.getType());
+        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {
+        }.getType());
 
         return categorias;
     }
@@ -72,5 +73,13 @@ public class Preferencias {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(NOTIFICACIONES_MAXIMAS, Integer.MAX_VALUE);
+    }
+
+    public static void guardarDistanciaMaxima(Context context, Integer distanciaMaxima) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(DISTANCIA_MAXIMA,distanciaMaxima);
+        editor.commit();
     }
 }

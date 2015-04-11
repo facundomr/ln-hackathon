@@ -205,6 +205,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     @Override
     public void guardarCambios() {
 
+        Preferencias.guardarDistanciaMaxima(getActivity(), this.distanciaMaxima);
     }
 
     @Override
