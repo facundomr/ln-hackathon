@@ -20,32 +20,119 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.18"
+                android:layout_weight="0.22"
                 android:background="@color/azul_oscuro_club">
+
+                <ar.com.develup.desafioclublanacion.componentes.AutoResizeTextView
+                    android:id="@+id/tipo_beneficio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="146dp"
+                    android:padding="4dp"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:textSize="45sp"
+                    android:layout_above="@+id/descripcion_beneficio"
+                    tools:text="20%"/>
 
                 <ar.com.develup.desafioclublanacion.componentes.AutoResizeTextView
                     android:id="@+id/descripcion_beneficio"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
                     android:layout_marginLeft="146dp"
-                    android:padding="16dp"
                     android:textColor="@android:color/white"
+                    android:paddingRight="4dp"
+                    android:paddingLeft="4dp"
+                    android:layout_marginBottom="4dp"
                     android:gravity="center"
-                    tools:text="2x1 oferta!"/>
+                    android:textSize="12sp"
+                    android:layout_alignParentBottom="true"
+                    tools:text="Sobre el total de tu factura en anteojos recetados y lentes de sol"/>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.82"
-                android:background="@color/gris_contenedor">
+                android:layout_weight="0.78"
+                android:background="@android:color/white">
+
+                <RelativeLayout
+                    android:id="@+id/layout_tarjetas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/tarjeta_classic"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/classic"
+                        android:adjustViewBounds="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="30dp"
+                        android:visibility="invisible"/>
+
+                    <ImageView
+                        android:id="@+id/tarjeta_premium"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/premium"
+                        android:layout_toRightOf="@+id/tarjeta_classic"
+                        android:adjustViewBounds="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="30dp"
+                        android:visibility="invisible"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tarjeta_premium"
+                        android:layout_alignTop="@+id/tarjeta_premium"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/label_desde"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Desde:"
+                            android:layout_marginLeft="16dp"/>
+
+                        <TextView
+                            android:id="@+id/valido_desde"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/label_desde"
+                            android:layout_alignBaseline="@id/label_desde"
+                            tools:text="15/09/2015"
+                            android:layout_marginLeft="8dp"/>
+
+                        <TextView
+                            android:id="@+id/label_hasta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/label_desde"
+                            android:text="Hasta:"
+                            android:layout_below="@id/label_desde"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/valido_hasta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@id/label_hasta"
+                            android:layout_alignRight="@id/valido_desde"
+                            tools:text="15/09/2015"
+                            android:layout_marginLeft="8dp"/>
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
 
         </LinearLayout>
-
 
         <ImageView
             android:id="@+id/imagen_beneficio"
@@ -54,6 +141,10 @@
             tools:src="@drawable/classic"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_margin="16dp"/>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="24dp"
+            android:padding="0.5dp"
+            android:background="#cccccc"/>
     </RelativeLayout>
 </RelativeLayout>

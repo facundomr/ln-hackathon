@@ -2,6 +2,7 @@ package ar.com.develup.desafioclublanacion.util;
 
 import android.content.Context;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -56,5 +57,11 @@ public class FechaUtil {
                          || (horaActual == horaHasta && minutoActual <= minutoHasta);
 
         return acepta;
+    }
+
+    public static String formatear(Date fecha) {
+
+        String patron = "dd/MM/yyyy";
+        return new SimpleDateFormat(patron).format(fecha);
     }
 }
