@@ -3,7 +3,10 @@ package ar.com.develup.desafioclublanacion.fragmentos;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Calendar;
 
@@ -33,7 +36,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     private View.OnClickListener cambiarDistanciaMaxima = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            mostrarDialogoDistanciaMaxima();
         }
     };
     private View.OnClickListener cambiarMaximasNotificaciones = new View.OnClickListener() {
@@ -101,7 +104,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
     private void actualizarEnPantalla() {
 
-        this.valorDistanciaMaxima.setText(darFormatoDistanciaMaxima());
+        this.valorDistanciaMaxima.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
         this.valorMaximasNotificaciones.setText(darFormatoMaximasNotificaciones());
 
     }
@@ -116,22 +119,77 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
         else {
             notificacionesConFormato = this.maximasNotificaciones + " " + getString(R.string.notificaciones);
         }
-        
+
         return notificacionesConFormato;
     }
 
-    private String darFormatoDistanciaMaxima() {
+    private String darFormatoDistanciaMaxima(Integer distanciaMaxima) {
 
         String distanciaConFormato = "";
 
-        if (this.distanciaMaxima.equals(Integer.MAX_VALUE)) {
+        if (distanciaMaxima.equals(Integer.MAX_VALUE)) {
             distanciaConFormato = getString(R.string.ilimitado);
         }
         else {
-            distanciaConFormato = DistanciaUtil.getDistanciaConFormato(this.distanciaMaxima);
+            distanciaConFormato = DistanciaUtil.getDistanciaConFormato(distanciaMaxima);
         }
 
         return distanciaConFormato;
+    }
+
+    public void mostrarDialogoDistanciaMaxima() {
+
+        View preferencias = View.inflate(getActivity(), R.layout.layout_dialogo_distancia_maxima, null);
+        final SeekBar radioSeekBar = (SeekBar) preferencias.findViewById(R.id.radioSeekBar);
+        final TextView radioValue = (TextView) preferencias.findViewById(R.id.radio_value);
+        radioValue.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
+        radioSeekBar.setMax(5000);
+        radioSeekBar.setProgress(distanciaMaxima.equals(Integer.MAX_VALUE) ? radioSeekBar.getMax() : distanciaMaxima - 1);
+
+        radioSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                if (progress == radioSeekBar.getMax()) {
+                    radioValue.setText(darFormatoDistanciaMaxima(Integer.MAX_VALUE));
+                }
+                else{
+                    radioValue.setText(darFormatoDistanciaMaxima(progress + 1));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch (SeekBar seekBar){
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                .title(getString(R.string.dialogo_radio_titulo))
+                .positiveText(R.string.aceptar)
+                .positiveColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeText(getString(R.string.cancelar))
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        super.onPositive(dialog);
+                        if (radioSeekBar.getProgress() == radioSeekBar.getMax()) {
+                            distanciaMaxima = Integer.MAX_VALUE;
+                        }
+                        else {
+                            distanciaMaxima = radioSeekBar.getProgress() + 1;
+                        }
+                        actualizarEnPantalla();
+                    }
+                })
+                .customView(preferencias, false);
+
+        builder.build().show();
     }
 
     @Override

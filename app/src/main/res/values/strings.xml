@@ -13,5 +13,8 @@
     <string name="descripcion_distancia_maxima">Recibir notificaciones de beneficios que estén a una distancia máxima de:</string>
     <string name="descripcion_maximas_notificaciones">Recibir por día como máximo:</string>
     <string name="descripcion_rango_horario">Recibir notificaciones dentro del siguiente rango horario:</string>
+    <string name="dialogo_radio_titulo">Radio</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="radio_label">Radio</string>
 
 </resources>
