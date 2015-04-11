@@ -53,8 +53,10 @@ import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 public class ServicioDeBeneficiosCercanos extends Service {
 
     private static final String LOG_TAG = ServicioDeBeneficiosCercanos.class.getSimpleName();
-    private static final long TIEMPO_MINIMO = 5000;
-    private static final long DISTANCIA_MINIMA = 1;
+
+    // Una hora
+    private static final long TIEMPO_MINIMO = 3600000;
+    private long distanciaMinimaEntreUbicaciones = 50;
 
     private Integer distanciaALosBeneficios = 10000;
 
@@ -80,6 +82,10 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
         this.distanciaALosBeneficios = Preferencias.getDistanciaMaxima(this);
 
+        if (this.distanciaALosBeneficios != Integer.MAX_VALUE) {
+            this.distanciaMinimaEntreUbicaciones = this.distanciaALosBeneficios / 2;
+        }
+
         setLocationManager();
     }
 
@@ -101,14 +107,14 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                     TIEMPO_MINIMO,
-                    DISTANCIA_MINIMA,
+                    distanciaMinimaEntreUbicaciones,
                     locationListener);
 
         } else {
 
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
                     TIEMPO_MINIMO,
-                    DISTANCIA_MINIMA,
+                    distanciaMinimaEntreUbicaciones,
                     locationListener);
 
         }
