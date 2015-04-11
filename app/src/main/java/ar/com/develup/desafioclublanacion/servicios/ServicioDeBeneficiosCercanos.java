@@ -35,7 +35,6 @@ import java.util.Set;
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
 import ar.com.develup.desafioclublanacion.R;
 import ar.com.develup.desafioclublanacion.actividades.ActividadDetalleBeneficio;
-import ar.com.develup.desafioclublanacion.actividades.ActividadPrincipal;
 import ar.com.develup.desafioclublanacion.api.ClubLaNacionAPI;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeCategoria;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeFecha;
@@ -157,7 +156,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
         Integer cantidadMaximaDeNotificacionesDiarias = Preferencias.getMaximasNotificaciones(ServicioDeBeneficiosCercanos.this);
         Integer cantidadDeNotificacionesMostradas = Preferencias.getCantidadDeNotificacionesMostradas(ServicioDeBeneficiosCercanos.this);
 
-        if(cantidadDeNotificacionesMostradas < cantidadMaximaDeNotificacionesDiarias) {
+        if(cantidadDeNotificacionesMostradas < cantidadMaximaDeNotificacionesDiarias
+                && FechaUtil.horarioActualAceptaNotificaciones(this)) {
 
             ClubLaNacionApplication aplicacion = (ClubLaNacionApplication) getApplication();
             if(aplicacion.hayConexionAInternet()) {
