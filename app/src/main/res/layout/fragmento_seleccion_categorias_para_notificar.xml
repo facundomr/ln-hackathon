@@ -17,169 +17,173 @@
         android:textSize="20sp"
         android:gravity="center"/>
 
-    <LinearLayout
-        android:id="@+id/categorias_listview"
-        android:orientation="vertical"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="25dp">
-
-        <!-- Gastronomía -->
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/categorias_listview"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/gastronomia">
+            android:layout_height="match_parent"
+            android:layout_marginTop="25dp">
 
-            <TextView
-                android:id="@+id/label_gastronomia"
-                android:textColor="@android:color/white"
+            <!-- Gastronomía -->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="GASTRONOMÍA"
-                android:layout_toLeftOf="@+id/checkbox_gastronomia"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/gastronomia">
 
-            <CheckBox
-                android:id="@+id/checkbox_gastronomia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
+                <TextView
+                    android:id="@+id/label_gastronomia"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="GASTRONOMÍA"
+                    android:layout_toLeftOf="@+id/checkbox_gastronomia"
+                    android:padding="18dp"/>
 
-        </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/checkbox_gastronomia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
 
-        <!-- Entretenimiento -->
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/entretenimiento">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/label_entretenimiento"
-                android:textColor="@android:color/white"
+            <!-- Entretenimiento -->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="ENTRETENIMIENTO"
-                android:layout_toLeftOf="@+id/checkbox_entretenimiento"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/entretenimiento">
 
-            <CheckBox
-                android:id="@+id/checkbox_entretenimiento"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
+                <TextView
+                    android:id="@+id/label_entretenimiento"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="ENTRETENIMIENTO"
+                    android:layout_toLeftOf="@+id/checkbox_entretenimiento"
+                    android:padding="18dp"/>
 
-        </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/checkbox_entretenimiento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
 
-        <!--  turismo -->
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/turismo">
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/label_turismo"
-                android:textColor="@android:color/white"
+            <!--  turismo -->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="TURISMO"
-                android:layout_toLeftOf="@+id/checkbox_turismo"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/turismo">
 
-            <CheckBox
-                android:id="@+id/checkbox_turismo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/label_turismo"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="TURISMO"
+                    android:layout_toLeftOf="@+id/checkbox_turismo"
+                    android:padding="18dp"/>
 
-        <!-- Cuidado personal -->
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/cuidado_personal">
+                <CheckBox
+                    android:id="@+id/checkbox_turismo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/label_cuidado_personal"
-                android:textColor="@android:color/white"
+            <!-- Cuidado personal -->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="CUIDADO PERSONAL"
-                android:layout_toLeftOf="@+id/checkbox_cuidado_personal"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/cuidado_personal">
 
-            <CheckBox
-                android:id="@+id/checkbox_cuidado_personal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-        </RelativeLayout>
-        <!-- Moda-->
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/moda">
+                <TextView
+                    android:id="@+id/label_cuidado_personal"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="CUIDADO PERSONAL"
+                    android:layout_toLeftOf="@+id/checkbox_cuidado_personal"
+                    android:padding="18dp"/>
 
-            <TextView
-                android:id="@+id/label_moda"
-                android:textColor="@android:color/white"
+                <CheckBox
+                    android:id="@+id/checkbox_cuidado_personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
+            </RelativeLayout>
+            <!-- Moda-->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="MODA"
-                android:layout_toLeftOf="@+id/checkbox_moda"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/moda">
 
-            <CheckBox
-                android:id="@+id/checkbox_moda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/label_moda"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="MODA"
+                    android:layout_toLeftOf="@+id/checkbox_moda"
+                    android:padding="18dp"/>
 
-        <!-- Más categorías-->
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/mas_categorias">
+                <CheckBox
+                    android:id="@+id/checkbox_moda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/label_mas_categorias"
-                android:textColor="@android:color/white"
+            <!-- Más categorías-->
+            <RelativeLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="MÁS CATEGORIAS"
-                android:layout_toLeftOf="@+id/checkbox_mas_categorias"
-                android:padding="18dp"/>
+                android:layout_height="60dp"
+                android:background="@color/mas_categorias">
 
-            <CheckBox
-                android:id="@+id/checkbox_mas_categorias"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"/>
-        </RelativeLayout>
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/label_mas_categorias"
+                    android:textColor="@android:color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="MÁS CATEGORIAS"
+                    android:layout_toLeftOf="@+id/checkbox_mas_categorias"
+                    android:padding="18dp"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_mas_categorias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
