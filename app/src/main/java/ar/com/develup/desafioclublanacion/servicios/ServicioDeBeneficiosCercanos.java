@@ -34,6 +34,7 @@ import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
 import ar.com.develup.desafioclublanacion.R;
+import ar.com.develup.desafioclublanacion.actividades.ActividadDetalleBeneficio;
 import ar.com.develup.desafioclublanacion.actividades.ActividadPrincipal;
 import ar.com.develup.desafioclublanacion.api.ClubLaNacionAPI;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeCategoria;
@@ -289,7 +290,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
     private void lanzarNotificacion(Beneficio beneficio, String distancia, Bitmap imagenBeneficio) {
 
-        Intent mostrarBeneficio = new Intent(this, ActividadPrincipal.class);
+        Intent mostrarBeneficio = new Intent(this, ActividadDetalleBeneficio.class);
+        mostrarBeneficio.putExtra("idBeneficio", beneficio.getId());
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, mostrarBeneficio, PendingIntent.FLAG_CANCEL_CURRENT);
 
         String mensaje = "A sólo " + distancia + "! " + beneficio.getDetalle().getDescripcion();

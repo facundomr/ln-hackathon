@@ -21,5 +21,9 @@
     <string name="desde">DESDE:</string>
     <string name="hasta">HASTA:</string>
     <string name="horario_invalido">El horario introducido es inválido, intentá con otro rango</string>
+    <string name="title_activity_actividad_detalle_beneficio">ActividadDetalleBeneficio</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>
