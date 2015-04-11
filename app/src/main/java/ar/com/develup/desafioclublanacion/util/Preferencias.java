@@ -12,7 +12,6 @@ import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
-import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 /**
  * Created by mmaisano on 10/04/15.
@@ -85,6 +84,14 @@ public class Preferencias {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(DISTANCIA_MAXIMA,distanciaMaxima);
+        editor.commit();
+    }
+
+    public static void guardarNotificacionesMaximas(Context context, Integer maximasNotificaciones) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(NOTIFICACIONES_MAXIMAS, maximasNotificaciones);
         editor.commit();
     }
 

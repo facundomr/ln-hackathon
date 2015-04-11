@@ -16,5 +16,6 @@
     <string name="dialogo_radio_titulo">Radio</string>
     <string name="cancelar">Cancelar</string>
     <string name="radio_label">Radio</string>
+    <string name="dialogo_maximas_notificaciones_titulo">Cantidad máxima de notificaciones diarias</string>
 
 </resources>

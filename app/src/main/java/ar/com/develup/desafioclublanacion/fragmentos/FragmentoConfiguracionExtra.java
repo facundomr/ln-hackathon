@@ -23,6 +23,8 @@ import static ar.com.develup.desafioclublanacion.util.FuentesUtil.Fuente.HELVETI
  */
 public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
+    public static final int MAX_DISTANCIA = 5000;
+    private static final int MAX_NOTIFICACIONES = 10;
     private View layoutDistanciaMaxima;
     private View layoutMaximasNotificaciones;
     private View layoutRangoHorario;
@@ -42,7 +44,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     private View.OnClickListener cambiarMaximasNotificaciones = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            mostrarDialogoMaximasNotificaciones();
         }
     };
     private View.OnClickListener cambiarRangoHorario = new View.OnClickListener() {
@@ -63,7 +65,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
 
         this.layoutDistanciaMaxima = view.findViewById(R.id.layout_distancia_maxima);
-        this.layoutMaximasNotificaciones = view.findViewById(R.id.label_maximas_notificaciones);
+        this.layoutMaximasNotificaciones = view.findViewById(R.id.layout_maximo_notificaciones);
         this.layoutRangoHorario = view.findViewById(R.id.layout_horario_habilitado);
         this.valorDistanciaMaxima = (TextView) view.findViewById(R.id.valor_distancia_maxima);
         this.valorMaximasNotificaciones = (TextView) view.findViewById(R.id.valor_maximas_notificaciones);
@@ -105,19 +107,19 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     private void actualizarEnPantalla() {
 
         this.valorDistanciaMaxima.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
-        this.valorMaximasNotificaciones.setText(darFormatoMaximasNotificaciones());
+        this.valorMaximasNotificaciones.setText(darFormatoMaximasNotificaciones(this.maximasNotificaciones));
 
     }
 
-    private String darFormatoMaximasNotificaciones() {
+    private String darFormatoMaximasNotificaciones(Integer maximasNotificaciones) {
 
         String notificacionesConFormato = "";
 
-        if (this.maximasNotificaciones.equals(Integer.MAX_VALUE)) {
+        if (maximasNotificaciones.equals(Integer.MAX_VALUE)) {
             notificacionesConFormato = getString(R.string.notificaciones_ilimitadas);
         }
         else {
-            notificacionesConFormato = this.maximasNotificaciones + " " + getString(R.string.notificaciones);
+            notificacionesConFormato = maximasNotificaciones + " " + getString(R.string.notificaciones);
         }
 
         return notificacionesConFormato;
@@ -143,7 +145,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
         final SeekBar radioSeekBar = (SeekBar) preferencias.findViewById(R.id.radioSeekBar);
         final TextView radioValue = (TextView) preferencias.findViewById(R.id.radio_value);
         radioValue.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
-        radioSeekBar.setMax(5000);
+        radioSeekBar.setMax(MAX_DISTANCIA);
         radioSeekBar.setProgress(distanciaMaxima.equals(Integer.MAX_VALUE) ? radioSeekBar.getMax() : distanciaMaxima - 1);
 
         radioSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -192,6 +194,61 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
         builder.build().show();
     }
 
+    public void mostrarDialogoMaximasNotificaciones() {
+
+        View preferencias = View.inflate(getActivity(), R.layout.layout_dialogo_maximas_notificaciones, null);
+        final SeekBar radioSeekBar = (SeekBar) preferencias.findViewById(R.id.notificacionesSeekBar);
+        final TextView notificacionesValue = (TextView) preferencias.findViewById(R.id.notificaciones_value);
+        notificacionesValue.setText(darFormatoMaximasNotificaciones(this.maximasNotificaciones));
+        radioSeekBar.setMax(MAX_NOTIFICACIONES);
+        radioSeekBar.setProgress(maximasNotificaciones.equals(Integer.MAX_VALUE) ? radioSeekBar.getMax() : maximasNotificaciones - 1);
+
+        radioSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                if (progress == radioSeekBar.getMax()) {
+                    notificacionesValue.setText(darFormatoMaximasNotificaciones(Integer.MAX_VALUE));
+                }
+                else{
+                    notificacionesValue.setText(darFormatoMaximasNotificaciones(progress + 1));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch (SeekBar seekBar){
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                .title(getString(R.string.dialogo_maximas_notificaciones_titulo))
+                .positiveText(R.string.aceptar)
+                .positiveColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeText(getString(R.string.cancelar))
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        super.onPositive(dialog);
+                        if (radioSeekBar.getProgress() == radioSeekBar.getMax()) {
+                            maximasNotificaciones = Integer.MAX_VALUE;
+                        }
+                        else {
+                            maximasNotificaciones = radioSeekBar.getProgress() + 1;
+                        }
+                        actualizarEnPantalla();
+                    }
+                })
+                .customView(preferencias, false);
+
+        builder.build().show();
+    }
+
     @Override
     public String getTitulo() {
         return "";
@@ -206,6 +263,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     public void guardarCambios() {
 
         Preferencias.guardarDistanciaMaxima(getActivity(), this.distanciaMaxima);
+        Preferencias.guardarNotificacionesMaximas(getActivity(), this.maximasNotificaciones);
     }
 
     @Override
