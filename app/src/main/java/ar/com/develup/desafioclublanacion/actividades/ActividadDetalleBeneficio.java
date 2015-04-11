@@ -56,6 +56,7 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
     private TextView validoDesde;
     private TextView validoHasta;
     private TextView noVolverAMostrar;
+    private TextView volverAMostrar;
     private TextView comoLlegar;
     private View contenedorPrincipal;
     private ProgressWheel progressWheel;
@@ -71,7 +72,7 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
     private View.OnClickListener noVolverAMostrarListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Preferencias.noMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
+            noVolverAMostrarBeneficio();
 
             new MaterialDialog.Builder(ActividadDetalleBeneficio.this)
                     .content(getString(R.string.no_veras_este_beneficio))
@@ -88,7 +89,34 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
 
                         @Override
                         public void onNegative(MaterialDialog dialog) {
-                            Preferencias.volverAMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
+                            volverAMostrarBeneficio();
+                        }
+                    })
+                    .show();
+        }
+    };
+
+    private View.OnClickListener volverAMostrarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            volverAMostrarBeneficio();
+
+            new MaterialDialog.Builder(ActividadDetalleBeneficio.this)
+                    .content(getString(R.string.veras_este_beneficio))
+                    .positiveText(R.string.aceptar)
+                    .negativeText(R.string.deshacer)
+                    .contentColorRes(android.R.color.background_dark)
+                    .positiveColorRes(android.R.color.background_dark)
+                    .negativeColorRes(android.R.color.darker_gray)
+                    .callback(new MaterialDialog.ButtonCallback() {
+                        @Override
+                        public void onPositive(MaterialDialog dialog) {
+                            super.onPositive(dialog);
+                        }
+
+                        @Override
+                        public void onNegative(MaterialDialog dialog) {
+                            noVolverAMostrarBeneficio();
                         }
                     })
                     .show();
@@ -106,6 +134,18 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
             startActivity(intent);
         }
     };
+
+    private void noVolverAMostrarBeneficio() {
+        Preferencias.noMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
+        noVolverAMostrar.setVisibility(View.INVISIBLE);
+        volverAMostrar.setVisibility(View.VISIBLE);
+    }
+
+    private void volverAMostrarBeneficio() {
+        Preferencias.volverAMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
+        noVolverAMostrar.setVisibility(View.VISIBLE);
+        volverAMostrar.setVisibility(View.INVISIBLE);
+    }
 
     @Override
     protected int getLayout() {
@@ -130,12 +170,14 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
         this.validoHasta = (TextView) findViewById(R.id.valido_hasta);
         this.descripcion = (TextView) findViewById(R.id.descripcion_beneficio);
         this.noVolverAMostrar = (TextView) findViewById(R.id.no_volver_a_mostrar);
+        this.volverAMostrar = (TextView) findViewById(R.id.volver_a_mostrar);
         this.contenedorPrincipal = findViewById(R.id.contenedor_principal);
         this.progressWheel = (ProgressWheel) findViewById(R.id.progressBar);
         this.comoLlegar = (TextView) findViewById(R.id.como_llegar);
         this.mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa);
         this.mapa.getMapAsync(this.mapaCargado);
         this.noVolverAMostrar.setOnClickListener(this.noVolverAMostrarListener);
+        this.volverAMostrar.setOnClickListener(this.volverAMostrarListener);
         this.comoLlegar.setOnClickListener(this.comoLlegarListener);
 
         configurarFuentes();

@@ -164,11 +164,25 @@
                             android:layout_height="match_parent"
                             android:layout_weight="0.5"
                             android:background="@color/celeste_club"
-                            android:text="NO VOLVER A MOSTRAR DE ESTE BENEFICIO"
+                            android:text="NO VOLVER A MOSTRAR ESTE BENEFICIO"
                             android:padding="4dp"
                             android:gravity="center"
                             android:textSize="12sp"
                             android:textStyle="bold"
+                            android:textColor="@android:color/white"/>
+
+                        <TextView
+                            android:id="@+id/volver_a_mostrar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:background="@color/celeste_club"
+                            android:text="VOLVER A MOSTRAR ESTE BENEFICIO"
+                            android:padding="4dp"
+                            android:gravity="center"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
                             android:textColor="@android:color/white"/>
 
                         <TextView

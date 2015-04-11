@@ -32,6 +32,7 @@
     <string name="gracias">¡Gracias por utilizar Alertas Club LA NACIÓN!</string>
     <string name="no_veras_este_beneficio">No volverás a ver notificaciones de este beneficio</string>
     <string name="deshacer">Deshacer</string>
+    <string name="veras_este_beneficio">Volverás a ver notificaciones de este beneficio</string>
 
 
 </resources>
