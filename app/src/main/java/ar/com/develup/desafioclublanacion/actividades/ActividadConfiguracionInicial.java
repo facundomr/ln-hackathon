@@ -9,7 +9,7 @@ import java.util.List;
 
 import ar.com.develup.desafioclublanacion.R;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracion;
-import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracionFinalizada;
+import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracionExtra;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoSeleccionCategoriasParaNotificar;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoSeleccionTarjeta;
 
@@ -22,7 +22,7 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
     private List<FragmentoConfiguracion> fragmentos = new LinkedList<>();
     private FragmentoSeleccionTarjeta fragmentoSeleccionTarjeta = new FragmentoSeleccionTarjeta();
     private FragmentoSeleccionCategoriasParaNotificar fragmentoSeleccionCategoriasParaNotificar = new FragmentoSeleccionCategoriasParaNotificar();
-    private FragmentoConfiguracionFinalizada fragmentoConfiguracionFinalizada = new FragmentoConfiguracionFinalizada();
+    private FragmentoConfiguracionExtra fragmentoConfiguracionExtra = new FragmentoConfiguracionExtra();
     private int indiceFragmentoActual;
     private View siguiente;
     private View anterior;
@@ -79,7 +79,7 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
 
         fragmentos.add(fragmentoSeleccionTarjeta);
         fragmentos.add(fragmentoSeleccionCategoriasParaNotificar);
-        fragmentos.add(fragmentoConfiguracionFinalizada);
+        fragmentos.add(fragmentoConfiguracionExtra);
         colocarFragmento(fragmentos.get(indiceFragmentoActual));
     }
 

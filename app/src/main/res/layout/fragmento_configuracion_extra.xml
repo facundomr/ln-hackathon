@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.33">
+
+        <IconTextView
+            android:id="@+id/ic_cercania"
+            android:text="{fa-location-arrow}"
+            android:shadowColor="@color/azul_oscuro_club"
+            android:layout_margin="16dp"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:layout_centerVertical="true"
+            android:textSize="80sp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:id="@+id/desc_cercania"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ic_cercania"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/label_cercania"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="16dp"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:text="Recibir notificaciones de beneficios que estén a una distancia máxima de:"/>
+
+            <TextView
+                android:id="@+id/valor_distancia_maxima"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_cercania"
+                android:layout_marginTop="10dp"
+                android:layout_alignRight="@+id/label_cercania"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="1 kilómetro"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.33"
+        android:background="#20000000">
+
+        <IconTextView
+            android:id="@+id/ic_max_notificaciones"
+            android:text="{fa-comments}"
+            android:shadowColor="@color/azul_oscuro_club"
+            android:layout_margin="16dp"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:layout_centerVertical="true"
+            android:textSize="80sp"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ic_max_notificaciones"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/label_maximas_notificaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:text="Recibir por día como máximo:"/>
+
+            <TextView
+                android:id="@+id/valor_maximas_notificaciones"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_maximas_notificaciones"
+                android:layout_marginTop="10dp"
+                android:layout_alignLeft="@+id/label_maximas_notificaciones"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="3 notificaciones"
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.34">
+
+        <IconTextView
+            android:id="@+id/ic_horario_habilitado"
+            android:text="{fa-bell-slash}"
+            android:shadowColor="@color/azul_oscuro_club"
+            android:layout_margin="16dp"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="1"
+            android:layout_centerVertical="true"
+            android:textSize="70sp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ic_horario_habilitado"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/label_horario_habilitado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="16dp"
+                android:gravity="right"
+                android:textSize="15sp"
+                android:textColor="@android:color/white"
+                android:text="Recibir notificaciones dentro del siguiente rango horario:"/>
+
+            <TextView
+                android:id="@+id/valor_horario_habilitado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_horario_habilitado"
+                android:layout_marginTop="10dp"
+                android:layout_alignRight="@+id/label_horario_habilitado"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="10:00 hs. - 23:00 hs."
+                android:layout_marginRight="16dp"/>
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>
