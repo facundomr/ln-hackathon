@@ -55,8 +55,11 @@ public class ServicioDeBeneficiosCercanos extends Service {
     private static final String LOG_TAG = ServicioDeBeneficiosCercanos.class.getSimpleName();
 
     // Una hora
-    private static final long TIEMPO_MINIMO = 3600000;
-    private long distanciaMinimaEntreUbicaciones = 50;
+    //private static final long TIEMPO_MINIMO = 3600000;
+    // 30secs
+    private static final long TIEMPO_MINIMO = 30000;
+
+    private long distanciaMinimaEntreUbicaciones = 2;
 
     private Integer distanciaALosBeneficios = 10000;
 
