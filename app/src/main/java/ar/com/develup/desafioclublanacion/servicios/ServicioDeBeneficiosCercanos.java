@@ -1,6 +1,5 @@
 package ar.com.develup.desafioclublanacion.servicios;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -51,7 +50,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
     private static final String LOG_TAG = ServicioDeBeneficiosCercanos.class.getSimpleName();
     private static final long TIEMPO_MINIMO = 5000;
     private static final long DISTANCIA_MINIMA = 1;
-    private static final String DISTANCIA_A_LOS_BENEFICIOS = "10000";
+
+    private Integer distanciaALosBeneficios = 10000;
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -72,6 +72,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
     @Override
     public void onStart(Intent intent, int startid) {
+
+        this.distanciaALosBeneficios = Preferencias.getDistanciaMaxima(this);
 
         setLocationManager();
     }
@@ -146,7 +148,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ClubLaNacionAPI.BENEFICIOS_CERCANOS
                                         + ubicacionDelUsuario.getLatitude()
                                         + "/" + ubicacionDelUsuario.getLongitude()
-                                        + "/" + DISTANCIA_A_LOS_BENEFICIOS, new Response.Listener<JSONArray>() {
+                                        + "/" + distanciaALosBeneficios, new Response.Listener<JSONArray>() {
 
                 @Override
                 public void onResponse(JSONArray jsonArray) {
@@ -253,7 +255,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
                 .setAutoCancel(true)
                 .setStyle(notificationStyle)
                 .setContentIntent(notificationPendingIntent)
-                .setVibrate(new long[] {1000, 1000});
+                .setVibrate(new long[] {500, 1000});
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, builder.build());
