@@ -1,5 +1,7 @@
 package ar.com.develup.desafioclublanacion.util;
 
+import android.content.Context;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -33,5 +35,26 @@ public class FechaUtil {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
 
+    }
+
+    public static boolean horarioActualAceptaNotificaciones(Context context) {
+
+        Calendar calendarActual = Calendar.getInstance();
+        Calendar desde = Preferencias.getNotificacionesDesdeHora(context);
+        Calendar hasta = Preferencias.getNotificacionesHastaHora(context);
+
+        int horaActual = calendarActual.get(Calendar.HOUR_OF_DAY);
+        int minutoActual = calendarActual.get(Calendar.MINUTE);
+
+        int horaDesde = desde.get(Calendar.HOUR_OF_DAY);
+        int minutoDesde = desde.get(Calendar.MINUTE);
+        int horaHasta = hasta.get(Calendar.HOUR_OF_DAY);
+        int minutoHasta = hasta.get(Calendar.MINUTE);
+
+        boolean acepta = (horaActual > horaDesde && horaActual < horaHasta)
+                         || (horaActual == horaDesde && minutoActual >= minutoDesde)
+                         || (horaActual == horaHasta && minutoActual <= minutoHasta);
+
+        return acepta;
     }
 }
