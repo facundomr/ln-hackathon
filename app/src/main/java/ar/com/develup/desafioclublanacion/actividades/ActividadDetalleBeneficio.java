@@ -77,10 +77,11 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
             new MaterialDialog.Builder(ActividadDetalleBeneficio.this)
                     .content(getString(R.string.no_veras_este_beneficio))
                     .positiveText(R.string.aceptar)
-                    .negativeText(R.string.deshacer)
+                    .negativeText(R.string.cancelar)
                     .contentColorRes(android.R.color.background_dark)
                     .positiveColorRes(android.R.color.background_dark)
                     .negativeColorRes(android.R.color.darker_gray)
+                    .cancelable(false)
                     .callback(new MaterialDialog.ButtonCallback() {
                         @Override
                         public void onPositive(MaterialDialog dialog) {
@@ -104,10 +105,11 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
             new MaterialDialog.Builder(ActividadDetalleBeneficio.this)
                     .content(getString(R.string.veras_este_beneficio))
                     .positiveText(R.string.aceptar)
-                    .negativeText(R.string.deshacer)
+                    .negativeText(R.string.cancelar)
                     .contentColorRes(android.R.color.background_dark)
                     .positiveColorRes(android.R.color.background_dark)
                     .negativeColorRes(android.R.color.darker_gray)
+                    .cancelable(false)
                     .callback(new MaterialDialog.ButtonCallback() {
                         @Override
                         public void onPositive(MaterialDialog dialog) {
@@ -137,14 +139,14 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
 
     private void noVolverAMostrarBeneficio() {
         Preferencias.noMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
-        noVolverAMostrar.setVisibility(View.INVISIBLE);
+        noVolverAMostrar.setVisibility(View.GONE);
         volverAMostrar.setVisibility(View.VISIBLE);
     }
 
     private void volverAMostrarBeneficio() {
         Preferencias.volverAMostrarBeneficio(ActividadDetalleBeneficio.this, beneficio.getId());
         noVolverAMostrar.setVisibility(View.VISIBLE);
-        volverAMostrar.setVisibility(View.INVISIBLE);
+        volverAMostrar.setVisibility(View.GONE);
     }
 
     @Override
