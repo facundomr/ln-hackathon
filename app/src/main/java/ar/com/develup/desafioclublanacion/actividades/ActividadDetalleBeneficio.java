@@ -1,10 +1,9 @@
 package ar.com.develup.desafioclublanacion.actividades;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -32,22 +31,30 @@ import ar.com.develup.desafioclublanacion.modelo.Punto;
 import ar.com.develup.desafioclublanacion.modelo.Tarjetas;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
-public class ActividadDetalleBeneficio extends ActionBarActivity {
+public class ActividadDetalleBeneficio extends ActividadBasica {
 
     private static final String LOG_TAG = ActividadDetalleBeneficio.class.getSimpleName();
     private String idBeneficio;
+    private ImageView foto;
+    private TextView descripcion;
+
+    @Override
+    protected int getLayout() {
+        return R.layout.actividad_detalle_beneficio;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actividad_detalle_beneficio);
 
         if(getIntent().getExtras() != null) {
             idBeneficio = getIntent().getExtras().getString("idBeneficio");
         }
 
         this.obtenerDetalleBeneficio();
+        this.foto = (ImageView) findViewById(R.id.imagen_beneficio);
+        this.descripcion = (TextView) findViewById(R.id.descripcion_beneficio);
     }
 
     private void obtenerDetalleBeneficio() {
@@ -89,7 +96,7 @@ public class ActividadDetalleBeneficio extends ActionBarActivity {
                     if (beneficios.size() > 0) {
 
                         buscado = beneficios.get(0);
-                        //TODO: Trabajar con este objeto
+                        mostrarDetalle(buscado);
 
                     } else {
                         Log.e(LOG_TAG, "La API no devolvió un Beneficio para el id: " + idBeneficio);
@@ -109,6 +116,12 @@ public class ActividadDetalleBeneficio extends ActionBarActivity {
 
         }
 
+    }
+
+    private void mostrarDetalle(Beneficio beneficio) {
+
+        getAplicacion().mostrarImagen(beneficio.getUrlImagen(), foto);
+        descripcion.setText(beneficio.getDetalle().getDescripcion());
     }
 
 }
