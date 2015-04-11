@@ -10,5 +10,8 @@
     <string name="ilimitado">Ilimitado</string>
     <string name="notificaciones_ilimitadas">Notificaciones ilimitadas</string>
     <string name="notificaciones">notificaciones</string>
+    <string name="descripcion_distancia_maxima">Recibir notificaciones de beneficios que estén a una distancia máxima de:</string>
+    <string name="descripcion_maximas_notificaciones">Recibir por día como máximo:</string>
+    <string name="descripcion_rango_horario">Recibir notificaciones dentro del siguiente rango horario:</string>
 
 </resources>
