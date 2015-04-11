@@ -2,7 +2,6 @@ package ar.com.develup.desafioclublanacion.fragmentos;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -106,8 +105,6 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
     @Override
     public void guardarCambios() {
 
-        Log.i(LOG_TAG, "Guardando cambios");
-
         if (tarjetaSeleccionada == Tarjeta.NINGUNA) {
             mostrarDialogoSeleccionarTarjeta();
         }
@@ -136,6 +133,8 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
         new MaterialDialog.Builder(getActivity())
                 .content(getString(R.string.selecciona_tarjeta_para_continuar))
                 .positiveText(R.string.aceptar)
+                .contentColorRes(android.R.color.background_dark)
+                .positiveColorRes(android.R.color.background_dark)
                 .show();
     }
 
