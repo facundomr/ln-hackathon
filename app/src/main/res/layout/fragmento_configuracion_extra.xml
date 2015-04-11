@@ -5,10 +5,15 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
+    <!-- Distancia máxima -->
     <RelativeLayout
+        android:id="@+id/layout_distancia_maxima"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.33">
+        android:layout_weight="0.33"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/selector_boton_transparente_a_oscuro">
 
         <IconTextView
             android:id="@+id/ic_cercania"
@@ -55,11 +60,15 @@
         </RelativeLayout>
     </RelativeLayout>
 
+    <!-- Layout Máximo de notificaciones -->
     <RelativeLayout
+        android:id="@+id/layout_maximo_notificaciones"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.33"
-        android:background="#20000000">
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/selector_boton_oscuro_transparente">
 
         <IconTextView
             android:id="@+id/ic_max_notificaciones"
@@ -108,10 +117,15 @@
 
     </RelativeLayout>
 
+    <!-- Layout horario habilitado -->
     <RelativeLayout
+        android:id="@+id/layout_horario_habilitado"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.34">
+        android:layout_weight="0.34"
+        android:focusable="true"
+        android:clickable="true"
+        android:background="@drawable/selector_boton_transparente_a_oscuro">
 
         <IconTextView
             android:id="@+id/ic_horario_habilitado"

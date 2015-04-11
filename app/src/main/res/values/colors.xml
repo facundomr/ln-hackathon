@@ -16,4 +16,8 @@
     <color name="mas_categorias">#fc2c03</color>
     <color name="moda">#e72b71</color>
 
+    <!-- Otros -->
+    <color name="negro_transparente_medio">#50000000</color>
+    <color name="negro_transparente_claro">#20000000</color>
+
 </resources>

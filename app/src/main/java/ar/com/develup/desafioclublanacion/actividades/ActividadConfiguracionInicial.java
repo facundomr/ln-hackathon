@@ -52,13 +52,7 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         @Override
         public void onClick(View v) {
 
-            FragmentoConfiguracion fragmentoActual = fragmentos.get(indiceFragmentoActual);
-            fragmentoActual.guardarCambios();
-
-            if (indiceFragmentoActual > 0) {
-                indiceFragmentoActual --;
-                colocarFragmento(fragmentos.get(indiceFragmentoActual));
-            }
+            retrocederFragmento();
         }
     };
 
@@ -106,6 +100,29 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         }
         else {
             this.anterior.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
+    private void retrocederFragmento() {
+
+        FragmentoConfiguracion fragmentoActual = fragmentos.get(indiceFragmentoActual);
+        fragmentoActual.guardarCambios();
+
+        if (indiceFragmentoActual > 0) {
+            indiceFragmentoActual --;
+            colocarFragmento(fragmentos.get(indiceFragmentoActual));
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (indiceFragmentoActual > 0) {
+            retrocederFragmento();
+        }
+        else {
+            super.onBackPressed();
         }
     }
 }

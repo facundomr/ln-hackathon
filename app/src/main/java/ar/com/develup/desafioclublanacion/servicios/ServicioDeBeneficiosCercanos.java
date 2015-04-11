@@ -40,6 +40,7 @@ import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Punto;
 import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
 import ar.com.develup.desafioclublanacion.modelo.Tarjetas;
+import ar.com.develup.desafioclublanacion.util.DistanciaUtil;
 import ar.com.develup.desafioclublanacion.util.Preferencias;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
@@ -221,11 +222,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
         desde.setLongitude(beneficio.getPunto().getLongitud());
 
         float distancia = desde.distanceTo(ubicacionDelUsuario);
-        String distanciaString = Math.round(distancia) + " metros";
-        if (distancia >= 1000f) {
-            distanciaString = Math.round(distancia / 1000f) + "km";
-        }
-        return distanciaString;
+
+        return DistanciaUtil.getDistanciaConFormato(distancia);
     }
 
     private void mostrarNotificacion(Beneficio beneficio, String distancia) {

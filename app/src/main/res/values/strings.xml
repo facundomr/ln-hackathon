@@ -7,5 +7,8 @@
     <string name="selecciona_tarjeta_para_continuar">Debes seleccionar una tarjeta para continuar</string>
     <string name="aceptar">Aceptar</string>
     <string name="selecciona_categorias">Seleccioná las categorías para las cuales te gustaría recibir notificaciones de beneficios cercanos</string>
+    <string name="ilimitado">Ilimitado</string>
+    <string name="notificaciones_ilimitadas">Notificaciones ilimitadas</string>
+    <string name="notificaciones">notificaciones</string>
 
 </resources>

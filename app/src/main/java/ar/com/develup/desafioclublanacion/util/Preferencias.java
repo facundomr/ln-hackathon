@@ -10,7 +10,6 @@ import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
-import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 /**
  * Created by mmaisano on 10/04/15.
@@ -20,6 +19,9 @@ public class Preferencias {
     private static final String NOMBRE_PREFERENCIAS = "PREFERENCIAS_CLUB_LA_NACION";
     public static final String TARJETA = "TARJETA";
     public static final String CATEGORIAS_NOTIFICACION = "CATEGORIAS_NOTIFICACION";
+    public static final String DISTANCIA_MAXIMA = "DISTANCIA_MAXIMA";
+    public static final String NOTIFICACIONES_MAXIMAS = "NOTIFICACIONES_MAXIMAS";
+    public static final String RANGO_HORARIO = "RANGO_HORARIO";
 
     public static void guardar(Context context, String clave, String valor) {
 
@@ -50,8 +52,7 @@ public class Preferencias {
     public static Set<Categoria> obtenerCategorias(Context context) {
 
         String json = obtenerString(context, CATEGORIAS_NOTIFICACION);
-        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {
-        }.getType());
+        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {}.getType());
 
         return categorias;
     }
@@ -59,5 +60,17 @@ public class Preferencias {
     public static Tarjeta obtenerTarjeta(Context context) {
 
         return Tarjeta.valueOf(Preferencias.obtenerString(context, Preferencias.TARJETA));
+    }
+
+    public static Integer getDistanciaMaxima(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(DISTANCIA_MAXIMA, Integer.MAX_VALUE);
+    }
+
+    public static Integer getMaximasNotificaciones(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(NOTIFICACIONES_MAXIMAS, Integer.MAX_VALUE);
     }
 }
