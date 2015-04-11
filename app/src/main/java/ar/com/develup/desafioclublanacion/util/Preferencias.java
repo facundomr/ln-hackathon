@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
@@ -22,6 +23,7 @@ public class Preferencias {
     public static final String DISTANCIA_MAXIMA = "DISTANCIA_MAXIMA";
     public static final String NOTIFICACIONES_MAXIMAS = "NOTIFICACIONES_MAXIMAS";
     public static final String RANGO_HORARIO = "RANGO_HORARIO";
+    private static final String BENEFICIOS_MOSTRADOS = "BENEFICIOS_MOSTRADOS";
 
     public static void guardar(Context context, String clave, String valor) {
 
@@ -52,7 +54,8 @@ public class Preferencias {
     public static Set<Categoria> obtenerCategorias(Context context) {
 
         String json = obtenerString(context, CATEGORIAS_NOTIFICACION);
-        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {}.getType());
+        Set<Categoria> categorias = new Gson().fromJson(json, new TypeToken<Set<Categoria>>() {
+        }.getType());
 
         return categorias;
     }
@@ -73,4 +76,27 @@ public class Preferencias {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(NOTIFICACIONES_MAXIMAS, Integer.MAX_VALUE);
     }
+
+    public static Set<String> obtenerIdsDeBeneficiosMostrados(Context context) {
+
+        String json = obtenerString(context, BENEFICIOS_MOSTRADOS);
+        Set<String> ids = new Gson().fromJson(json, new TypeToken<Set<String>>() {
+        }.getType());
+
+        if (ids == null) {
+            ids = new HashSet<String>();
+        }
+
+        return ids;
+    }
+
+    public static void guardarBeneficioMostrado(Context context, String id) {
+
+        Set<String> ids = obtenerIdsDeBeneficiosMostrados(context);
+        ids.add(id);
+        String valorString = new Gson().toJson(ids);
+
+        guardar(context, BENEFICIOS_MOSTRADOS, valorString);
+    }
+
 }

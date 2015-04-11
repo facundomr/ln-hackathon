@@ -206,7 +206,9 @@ public class ServicioDeBeneficiosCercanos extends Service {
                 Beneficio unBeneficio = beneficios.get(i);
 
                 if (categoriasDelUsuario.contains(unBeneficio.getDetalle().getCategoria())
-                        && unBeneficio.getDetalle().getTarjetas().getTarjetas().contains(tarjetaDelusuario)) {
+                        && unBeneficio.getDetalle().getTarjetas().getTarjetas().contains(tarjetaDelusuario)
+                        && !Preferencias.obtenerIdsDeBeneficiosMostrados(this).contains(unBeneficio.getId())) {
+
                     beneficioAMostrar = unBeneficio;
                 }
             }
@@ -246,6 +248,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, builder.build());
+
+        Preferencias.guardarBeneficioMostrado(this, beneficio.getId());
     }
 
 }
