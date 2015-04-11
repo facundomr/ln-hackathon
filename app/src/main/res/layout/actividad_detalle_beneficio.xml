@@ -1,8 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <include layout="@layout/toolbar"></include>
 
@@ -124,14 +123,9 @@
                             android:layout_alignRight="@id/valido_desde"
                             tools:text="15/09/2015"
                             android:layout_marginLeft="8dp"/>
-
                     </RelativeLayout>
-
                 </RelativeLayout>
-
             </RelativeLayout>
-
-
         </LinearLayout>
 
         <ImageView
