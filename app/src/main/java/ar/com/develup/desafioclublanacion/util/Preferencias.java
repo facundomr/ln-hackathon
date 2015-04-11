@@ -29,6 +29,7 @@ public class Preferencias {
     private static final String BENEFICIOS_MOSTRADOS = "BENEFICIOS_MOSTRADOS";
     private static final String FECHA_ULTIMA_NOTIFICACION ="FECHA_ULTIMA_NOTIFICACION";
     private static final String CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS = "CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS";
+    private static final String BENEFICIOS_QUE_NO_SE_DEBEN_MOSTRAR = "BENEFICIOS_QUE_NO_SE_DEBEN_MOSTRAR";
 
     public static void guardar(Context context, String clave, String valor) {
 
@@ -211,6 +212,38 @@ public class Preferencias {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
         return sharedPreferences.getInt(CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS, 0);
+    }
+
+    public static Set<String> obtenerIdsDeBeneficiosQueNoSeDebenMostrar(Context context) {
+
+        String json = obtenerString(context, BENEFICIOS_QUE_NO_SE_DEBEN_MOSTRAR);
+        Set<String> ids = new Gson().fromJson(json, new TypeToken<Set<String>>() {
+        }.getType());
+
+        if (ids == null) {
+            ids = new HashSet<String>();
+        }
+
+        return ids;
+    }
+
+    public static void noMostrarBeneficio(Context context, String id) {
+
+        Set<String> ids = obtenerIdsDeBeneficiosQueNoSeDebenMostrar(context);
+        ids.add(id);
+        String valorString = new Gson().toJson(ids);
+
+        guardar(context, BENEFICIOS_QUE_NO_SE_DEBEN_MOSTRAR, valorString);
+    }
+
+    public static void volverAMostrarBeneficio(Context context, String id) {
+
+        Set<String> ids = obtenerIdsDeBeneficiosQueNoSeDebenMostrar(context);
+        ids.remove(id);
+        String valorString = new Gson().toJson(ids);
+
+        guardar(context, BENEFICIOS_QUE_NO_SE_DEBEN_MOSTRAR, valorString);
+
     }
 
 }

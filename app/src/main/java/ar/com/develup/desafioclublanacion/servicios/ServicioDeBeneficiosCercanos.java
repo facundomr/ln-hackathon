@@ -236,7 +236,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
                 if (categoriasDelUsuario.contains(unBeneficio.getDetalle().getCategoria())
                         && unBeneficio.getDetalle().getTarjetas().getTarjetas().contains(tarjetaDelusuario)
-                        && !Preferencias.obtenerIdsDeBeneficiosMostrados(this).contains(unBeneficio.getId())) {
+                        && !Preferencias.obtenerIdsDeBeneficiosMostrados(this).contains(unBeneficio.getId())
+                        && !Preferencias.obtenerIdsDeBeneficiosQueNoSeDebenMostrar(this).contains(unBeneficio.getId())) {
 
                     beneficioAMostrar = unBeneficio;
                 }
