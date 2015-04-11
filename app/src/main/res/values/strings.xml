@@ -26,4 +26,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="listo">¡Listo!</string>
+    <string name="ya_estas_listo">En breve comenzarás a recibir novedades respecto a los beneficios cercanos a tu zona. Usaremos la información que configuraste para asegurarnos de ofrecerte sólamente aquellos beneficios que pueden interesarte. Si querés cambiar alguna de tus preferencias, simplemente andá hacia atrás y modificalas. ¡Gracias por utilizar Alertas Club LA NACIÓN!</string>
+    <string name="gracias">¡Gracias por utilizar Alertas Club LA NACIÓN!</string>
+
+
 </resources>
