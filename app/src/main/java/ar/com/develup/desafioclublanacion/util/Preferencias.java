@@ -6,11 +6,13 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 import ar.com.develup.desafioclublanacion.modelo.Categoria;
 import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
+import ar.com.develup.desafioclublanacion.servicios.ServicioDeBeneficiosCercanos;
 
 /**
  * Created by mmaisano on 10/04/15.
@@ -24,6 +26,7 @@ public class Preferencias {
     public static final String NOTIFICACIONES_MAXIMAS = "NOTIFICACIONES_MAXIMAS";
     public static final String RANGO_HORARIO = "RANGO_HORARIO";
     private static final String BENEFICIOS_MOSTRADOS = "BENEFICIOS_MOSTRADOS";
+    private static final String FECHA_ULTIMA_NOTIFICACION ="FECHA_ULTIMA_NOTIFICACION";
 
     public static void guardar(Context context, String clave, String valor) {
 
@@ -105,6 +108,24 @@ public class Preferencias {
         String valorString = new Gson().toJson(ids);
 
         guardar(context, BENEFICIOS_MOSTRADOS, valorString);
+
+        guardarFechaUltimaModificacion(context, new Date());
     }
 
+    public static Date obtenerFechaUltimaModificacion(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+
+        return new Date(sharedPreferences.getLong(FECHA_ULTIMA_NOTIFICACION, 0));
+    }
+
+    public static void guardarFechaUltimaModificacion(Context context, Date fecha) {
+
+        context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().putLong(FECHA_ULTIMA_NOTIFICACION, fecha.getTime()).apply();
+    }
+
+    public static void borrarIdsBeneficiosMostrados(Context context) {
+
+        context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().remove(BENEFICIOS_MOSTRADOS).commit();
+    }
 }

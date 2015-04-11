@@ -41,6 +41,7 @@ import ar.com.develup.desafioclublanacion.modelo.Punto;
 import ar.com.develup.desafioclublanacion.modelo.Tarjeta;
 import ar.com.develup.desafioclublanacion.modelo.Tarjetas;
 import ar.com.develup.desafioclublanacion.util.DistanciaUtil;
+import ar.com.develup.desafioclublanacion.util.FechaUtil;
 import ar.com.develup.desafioclublanacion.util.Preferencias;
 import ar.com.develup.desafioclublanacion.util.SingletonRequestQueue;
 
@@ -167,7 +168,6 @@ public class ServicioDeBeneficiosCercanos extends Service {
                     List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
                     Log.i(LOG_TAG, "Beneficios obtenidos " + beneficios.size());
 
-
                     Beneficio relevante = buscarBeneficioRelevante(beneficios, ubicacionDelUsuario);
 
                     if (relevante != null) {
@@ -192,6 +192,13 @@ public class ServicioDeBeneficiosCercanos extends Service {
     }
 
     private Beneficio buscarBeneficioRelevante(List<Beneficio> beneficios, Location ubicacionDelUsuario) {
+
+        Date ultimaNotificacionMostrada = Preferencias.obtenerFechaUltimaModificacion(ServicioDeBeneficiosCercanos.this);
+        if (FechaUtil.pasoAyerOAntes(ultimaNotificacionMostrada)) {
+
+            Preferencias.borrarIdsBeneficiosMostrados(this);
+        }
+
 
         Beneficio beneficioAMostrar = null;
 
