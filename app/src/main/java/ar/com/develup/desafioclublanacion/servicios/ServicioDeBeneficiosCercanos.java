@@ -1,5 +1,6 @@
 package ar.com.develup.desafioclublanacion.servicios;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -50,7 +51,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
     private static final String LOG_TAG = ServicioDeBeneficiosCercanos.class.getSimpleName();
     private static final long TIEMPO_MINIMO = 5000;
     private static final long DISTANCIA_MINIMA = 1;
-    private static final String DISTANCIA_A_LOS_BENEFICIOS = "1000";
+    private static final String DISTANCIA_A_LOS_BENEFICIOS = "10000";
 
     private LocationManager locationManager;
     private LocationListener locationListener;
@@ -251,7 +252,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setAutoCancel(true)
                 .setStyle(notificationStyle)
-                .setContentIntent(notificationPendingIntent);
+                .setContentIntent(notificationPendingIntent)
+                .setVibrate(new long[] {1000, 1000});
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, builder.build());
