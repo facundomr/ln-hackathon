@@ -26,6 +26,7 @@ public class Preferencias {
     public static final String RANGO_HORARIO = "RANGO_HORARIO";
     private static final String BENEFICIOS_MOSTRADOS = "BENEFICIOS_MOSTRADOS";
     private static final String FECHA_ULTIMA_NOTIFICACION ="FECHA_ULTIMA_NOTIFICACION";
+    private static final String CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS = "CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS";
 
     public static void guardar(Context context, String clave, String valor) {
 
@@ -116,7 +117,27 @@ public class Preferencias {
 
         guardar(context, BENEFICIOS_MOSTRADOS, valorString);
 
-        guardarFechaUltimaModificacion(context, new Date());
+        guardarFechaUltimaNotificacion(context, new Date());
+        aumentarCantidadDeBeneficiosMostrados(context);
+    }
+
+    private static void aumentarCantidadDeBeneficiosMostrados(Context context) {
+
+        Integer cantidadActual = getCantidadDeNotificacionesMostradas(context);
+        cantidadActual++;
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS, cantidadActual);
+        editor.commit();
+    }
+
+    public static void resetearContadorDeNotificacionesMostradas(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS, 0);
+        editor.commit();
     }
 
     public static Date obtenerFechaUltimaModificacion(Context context) {
@@ -126,7 +147,7 @@ public class Preferencias {
         return new Date(sharedPreferences.getLong(FECHA_ULTIMA_NOTIFICACION, 0));
     }
 
-    public static void guardarFechaUltimaModificacion(Context context, Date fecha) {
+    public static void guardarFechaUltimaNotificacion(Context context, Date fecha) {
 
         context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().putLong(FECHA_ULTIMA_NOTIFICACION, fecha.getTime()).apply();
     }
@@ -135,4 +156,11 @@ public class Preferencias {
 
         context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().remove(BENEFICIOS_MOSTRADOS).commit();
     }
+
+    public static Integer getCantidadDeNotificacionesMostradas(Context context) {
+
+        SharedPreferences sharedPreferences = context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE);
+        return sharedPreferences.getInt(CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS, 0);
+    }
+
 }

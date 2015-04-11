@@ -142,56 +142,62 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
         Log.i(LOG_TAG, "Nueva ubicación! lat: " + ubicacionDelUsuario.getLatitude() + " long: " + ubicacionDelUsuario.getLongitude());
 
-        ClubLaNacionApplication aplicacion = (ClubLaNacionApplication) getApplication();
-        if(aplicacion.hayConexionAInternet()) {
+        Integer cantidadMaximaDeNotificacionesDiarias = Preferencias.getMaximasNotificaciones(ServicioDeBeneficiosCercanos.this);
+        Integer cantidadDeNotificacionesMostradas = Preferencias.getCantidadDeNotificacionesMostradas(ServicioDeBeneficiosCercanos.this);
 
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ClubLaNacionAPI.BENEFICIOS_CERCANOS
-                                        + ubicacionDelUsuario.getLatitude()
-                                        + "/" + ubicacionDelUsuario.getLongitude()
-                                        + "/" + distanciaALosBeneficios, new Response.Listener<JSONArray>() {
+        if(cantidadDeNotificacionesMostradas < cantidadMaximaDeNotificacionesDiarias) {
 
-                @Override
-                public void onResponse(JSONArray jsonArray) {
+            ClubLaNacionApplication aplicacion = (ClubLaNacionApplication) getApplication();
+            if(aplicacion.hayConexionAInternet()) {
 
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-                    gsonBuilder.registerTypeAdapter(Date.class, new DeserializadorDeFecha());
-                    gsonBuilder.registerTypeAdapter(Punto.class, new DeserializadorDePunto());
+                JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ClubLaNacionAPI.BENEFICIOS_CERCANOS
+                                            + ubicacionDelUsuario.getLatitude()
+                                            + "/" + ubicacionDelUsuario.getLongitude()
+                                            + "/" + distanciaALosBeneficios, new Response.Listener<JSONArray>() {
 
-                    DeserializadorDeTarjetas deserializadorDeTarjetas = new DeserializadorDeTarjetas();
-                    deserializadorDeTarjetas.setContext(ServicioDeBeneficiosCercanos.this);
-                    gsonBuilder.registerTypeAdapter(Tarjetas.class, deserializadorDeTarjetas);
+                    @Override
+                    public void onResponse(JSONArray jsonArray) {
 
-                    DeserializadorDeCategoria deserializadorDeCategoria = new DeserializadorDeCategoria();
-                    deserializadorDeCategoria.setContext(ServicioDeBeneficiosCercanos.this);
-                    gsonBuilder.registerTypeAdapter(Categoria.class, deserializadorDeCategoria);
+                        GsonBuilder gsonBuilder = new GsonBuilder();
+                        gsonBuilder.registerTypeAdapter(Date.class, new DeserializadorDeFecha());
+                        gsonBuilder.registerTypeAdapter(Punto.class, new DeserializadorDePunto());
 
-                    Gson gson = gsonBuilder.create();
+                        DeserializadorDeTarjetas deserializadorDeTarjetas = new DeserializadorDeTarjetas();
+                        deserializadorDeTarjetas.setContext(ServicioDeBeneficiosCercanos.this);
+                        gsonBuilder.registerTypeAdapter(Tarjetas.class, deserializadorDeTarjetas);
 
-                    Type collectionType = new TypeToken<List<Beneficio>>() {}.getType();
-                    List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
-                    Log.i(LOG_TAG, "Beneficios obtenidos " + beneficios.size());
+                        DeserializadorDeCategoria deserializadorDeCategoria = new DeserializadorDeCategoria();
+                        deserializadorDeCategoria.setContext(ServicioDeBeneficiosCercanos.this);
+                        gsonBuilder.registerTypeAdapter(Categoria.class, deserializadorDeCategoria);
 
-                    Beneficio relevante = buscarBeneficioRelevante(beneficios, ubicacionDelUsuario);
+                        Gson gson = gsonBuilder.create();
 
-                    if (relevante != null) {
+                        Type collectionType = new TypeToken<List<Beneficio>>() {}.getType();
+                        List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
+                        Log.i(LOG_TAG, "Beneficios obtenidos " + beneficios.size());
 
-                        String distanciaString = calcularDistancia(relevante, ubicacionDelUsuario);
-                        mostrarNotificacion(relevante, distanciaString);
+                        Beneficio relevante = buscarBeneficioRelevante(beneficios, ubicacionDelUsuario);
+
+                        if (relevante != null) {
+
+                            String distanciaString = calcularDistancia(relevante, ubicacionDelUsuario);
+                            mostrarNotificacion(relevante, distanciaString);
+                        }
+
                     }
+                },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+
+                                Log.e(LOG_TAG, "Error intentando obtener los Beneficios cercanos: " + volleyError.getCause());
+                            }
+                        });
+
+                SingletonRequestQueue.getInstance(ServicioDeBeneficiosCercanos.this).addToRequestQueue(jsonArrayRequest);
 
                 }
-            },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError volleyError) {
-
-                            Log.e(LOG_TAG, "Error intentando obtener los Beneficios cercanos: " + volleyError.getCause());
-                        }
-                    });
-
-            SingletonRequestQueue.getInstance(ServicioDeBeneficiosCercanos.this).addToRequestQueue(jsonArrayRequest);
-
-            }
+        }
     }
 
     private Beneficio buscarBeneficioRelevante(List<Beneficio> beneficios, Location ubicacionDelUsuario) {
@@ -200,6 +206,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
         if (FechaUtil.pasoAyerOAntes(ultimaNotificacionMostrada)) {
 
             Preferencias.borrarIdsBeneficiosMostrados(this);
+            Preferencias.resetearContadorDeNotificacionesMostradas(this);
         }
 
 
