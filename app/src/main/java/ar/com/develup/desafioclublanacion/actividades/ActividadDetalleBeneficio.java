@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import org.json.JSONArray;
 
@@ -56,6 +57,8 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
     private TextView validoHasta;
     private TextView noVolverAMostrar;
     private TextView comoLlegar;
+    private View contenedorPrincipal;
+    private ProgressWheel progressWheel;
     private SupportMapFragment mapa;
     private OnMapReadyCallback mapaCargado = new OnMapReadyCallback() {
         @Override
@@ -127,6 +130,8 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
         this.validoHasta = (TextView) findViewById(R.id.valido_hasta);
         this.descripcion = (TextView) findViewById(R.id.descripcion_beneficio);
         this.noVolverAMostrar = (TextView) findViewById(R.id.no_volver_a_mostrar);
+        this.contenedorPrincipal = findViewById(R.id.contenedor_principal);
+        this.progressWheel = (ProgressWheel) findViewById(R.id.progressBar);
         this.comoLlegar = (TextView) findViewById(R.id.como_llegar);
         this.mapa = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapa);
         this.mapa.getMapAsync(this.mapaCargado);
@@ -210,6 +215,8 @@ public class ActividadDetalleBeneficio extends ActividadBasica {
 
     private void mostrarDetalle(Beneficio beneficio) {
 
+        this.progressWheel.setVisibility(View.GONE);
+        this.contenedorPrincipal.setVisibility(View.VISIBLE);
         this.beneficio = beneficio;
 
         this.ubicarBeneficio();
