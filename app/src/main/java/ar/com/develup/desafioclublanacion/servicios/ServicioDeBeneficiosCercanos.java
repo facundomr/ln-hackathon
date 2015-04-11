@@ -303,7 +303,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(beneficio.getDetalle().getNombre() + " - " + beneficio.getDetalle().getTipo())
                 .setContentText(mensaje)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setStyle(notificationStyle)
                 .setContentIntent(notificationPendingIntent)
