@@ -1,5 +1,7 @@
 package ar.com.develup.desafioclublanacion.servicios;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.android.volley.Response;
@@ -24,6 +27,8 @@ import java.util.Date;
 import java.util.List;
 
 import ar.com.develup.desafioclublanacion.ClubLaNacionApplication;
+import ar.com.develup.desafioclublanacion.R;
+import ar.com.develup.desafioclublanacion.actividades.ActividadPrincipal;
 import ar.com.develup.desafioclublanacion.api.ClubLaNacionAPI;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeCategoria;
 import ar.com.develup.desafioclublanacion.api.deserializadores.DeserializadorDeFecha;
@@ -125,16 +130,16 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
     }
 
-    private void obtenerBeneficiosCercanos(Location loc) {
+    private void obtenerBeneficiosCercanos(final Location ubicacionDelUsuario) {
 
-        Log.i(LOG_TAG, "Nueva ubicación! lat: " + loc.getLatitude() + " long: " + loc.getLongitude());
+        Log.i(LOG_TAG, "Nueva ubicación! lat: " + ubicacionDelUsuario.getLatitude() + " long: " + ubicacionDelUsuario.getLongitude());
 
         ClubLaNacionApplication aplicacion = (ClubLaNacionApplication) getApplication();
         if(aplicacion.hayConexionAInternet()) {
 
             JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(ClubLaNacionAPI.BENEFICIOS_CERCANOS
-                                        + loc.getLatitude()
-                                        + "/" + loc.getLongitude()
+                                        + ubicacionDelUsuario.getLatitude()
+                                        + "/" + ubicacionDelUsuario.getLongitude()
                                         + "/" + DISTANCIA_A_LOS_BENEFICIOS, new Response.Listener<JSONArray>() {
 
                 @Override
@@ -158,8 +163,9 @@ public class ServicioDeBeneficiosCercanos extends Service {
                     List<Beneficio> beneficios = gson.fromJson(jsonArray.toString(), collectionType);
                     Log.i(LOG_TAG, "Beneficios obtenidos " + beneficios.size());
 
-                    // TODO: Operar con este
-                    Beneficio beneficio = beneficios.get(0);
+
+                    String distanciaString = calcularDistancia(beneficios.get(0), ubicacionDelUsuario);
+                    mostrarNotificacion(beneficios.get(0), distanciaString);
 
                 }
             },
@@ -174,6 +180,42 @@ public class ServicioDeBeneficiosCercanos extends Service {
             SingletonRequestQueue.getInstance(ServicioDeBeneficiosCercanos.this).addToRequestQueue(jsonArrayRequest);
 
             }
+    }
+
+    private String calcularDistancia(Beneficio beneficio, Location ubicacionDelUsuario) {
+
+        Location desde = new Location(ubicacionDelUsuario);
+        desde.setLatitude(beneficio.getPunto().getLatitud());
+        desde.setLongitude(beneficio.getPunto().getLongitud());
+
+        float distancia = desde.distanceTo(ubicacionDelUsuario);
+        String distanciaString = Math.round(distancia) + " metros";
+        if (distancia >= 1000f) {
+            distanciaString = Math.round(distancia / 1000f) + "km";
+        }
+        return distanciaString;
+    }
+
+    private void mostrarNotificacion(Beneficio beneficio, String distancia) {
+
+        Intent mostrarBeneficio = new Intent(this, ActividadPrincipal.class);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, mostrarBeneficio, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        String mensaje = "A sólo " + distancia + "! " + beneficio.getDetalle().getDescripcion();
+
+        NotificationCompat.BigTextStyle notificationStyle = new NotificationCompat.BigTextStyle().bigText(mensaje);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(beneficio.getDetalle().getNombre() + " - " + beneficio.getDetalle().getTipo())
+                .setContentText(mensaje)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setAutoCancel(true)
+                .setStyle(notificationStyle)
+                .setContentIntent(notificationPendingIntent);
+
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, builder.build());
     }
 
 }

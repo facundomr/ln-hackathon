@@ -83,4 +83,11 @@ public class Beneficio implements Serializable {
         return "http://club.lanacion.com.ar/imagenes/" + labelYNombre[labelYNombre.length - 1];
     }
 
+    public DetalleBeneficio getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetalleBeneficio detalle) {
+        this.detalle = detalle;
+    }
 }
