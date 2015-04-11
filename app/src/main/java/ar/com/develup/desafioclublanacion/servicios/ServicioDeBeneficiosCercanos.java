@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,6 +21,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import org.json.JSONArray;
 
@@ -245,7 +250,38 @@ public class ServicioDeBeneficiosCercanos extends Service {
         return DistanciaUtil.getDistanciaConFormato(distancia);
     }
 
-    private void mostrarNotificacion(Beneficio beneficio, String distancia) {
+    private void mostrarNotificacion(final Beneficio beneficio, final String distancia) {
+
+        ImageLoader.getInstance().loadImage(beneficio.getUrlImagen(), new ImageLoadingListener() {
+
+            @Override
+            public void onLoadingStarted(String imageUri, View view) {
+
+            }
+
+            @Override
+            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+
+                lanzarNotificacion(beneficio, distancia, null);
+            }
+
+            @Override
+            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                lanzarNotificacion(beneficio, distancia, loadedImage);
+
+            }
+
+            @Override
+            public void onLoadingCancelled(String imageUri, View view) {
+
+                lanzarNotificacion(beneficio, distancia, null);
+            }
+        });
+
+
+    }
+
+    private void lanzarNotificacion(Beneficio beneficio, String distancia, Bitmap imagenBeneficio) {
 
         Intent mostrarBeneficio = new Intent(this, ActividadPrincipal.class);
         PendingIntent notificationPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, mostrarBeneficio, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -255,6 +291,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
         NotificationCompat.BigTextStyle notificationStyle = new NotificationCompat.BigTextStyle().bigText(mensaje);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setLargeIcon(imagenBeneficio)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(beneficio.getDetalle().getNombre() + " - " + beneficio.getDetalle().getTipo())
                 .setContentText(mensaje)
@@ -262,7 +299,7 @@ public class ServicioDeBeneficiosCercanos extends Service {
                 .setAutoCancel(true)
                 .setStyle(notificationStyle)
                 .setContentIntent(notificationPendingIntent)
-                .setVibrate(new long[] {500, 1000});
+                .setVibrate(new long[] {500, 200, 100, 100});
 
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, builder.build());
