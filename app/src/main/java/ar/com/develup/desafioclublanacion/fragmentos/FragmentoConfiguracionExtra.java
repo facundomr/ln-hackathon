@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -289,14 +290,33 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
 
-                        desdeHora.set(Calendar.HOUR_OF_DAY, desde.getCurrentHour());
-                        desdeHora.set(Calendar.MINUTE, desde.getCurrentMinute());
+                        if (valido(desde, hasta)) {
 
-                        hastaHora.set(Calendar.HOUR_OF_DAY, hasta.getCurrentHour());
-                        hastaHora.set(Calendar.MINUTE, hasta.getCurrentMinute());
+                            desdeHora.set(Calendar.HOUR_OF_DAY, desde.getCurrentHour());
+                            desdeHora.set(Calendar.MINUTE, desde.getCurrentMinute());
 
-                        //TODO: Actualizar valores date picker
-                        actualizarEnPantalla();
+                            hastaHora.set(Calendar.HOUR_OF_DAY, hasta.getCurrentHour());
+                            hastaHora.set(Calendar.MINUTE, hasta.getCurrentMinute());
+                            
+                            actualizarEnPantalla();
+                        }
+                        else {
+
+                            Toast.makeText(getActivity(), getString(R.string.horario_invalido), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    private boolean valido(TimePicker desde, TimePicker hasta) {
+                        
+                        int horaDesde = desde.getCurrentHour();
+                        int minutoDesde = desde.getCurrentMinute();
+                        int horaHasta = hasta.getCurrentHour();
+                        int minutoHasta = hasta.getCurrentMinute();
+
+                        boolean acepta = (horaDesde < horaHasta)
+                                            || (horaDesde == horaHasta && minutoDesde < minutoHasta);
+                        
+                        return acepta;
                     }
                 })
                 .customView(viewDialogoRangoHorario, true);

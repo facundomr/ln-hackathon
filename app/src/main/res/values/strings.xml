@@ -20,5 +20,6 @@
     <string name="dialogo_rango_horario_titulo">Rango horario</string>
     <string name="desde">DESDE:</string>
     <string name="hasta">HASTA:</string>
+    <string name="horario_invalido">El horario introducido es inválido, intentá con otro rango</string>
 
 </resources>
