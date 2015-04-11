@@ -14,7 +14,7 @@
         android:layout_weight="0.33"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/selector_boton_transparente_a_oscuro">
+        android:background="@drawable/selector_boton_oscuro_transparente">
 
         <IconTextView
             android:id="@+id/ic_cercania"
@@ -69,7 +69,7 @@
         android:layout_weight="0.33"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/selector_boton_oscuro_transparente">
+        android:background="@drawable/selector_boton_transparente_a_oscuro">
 
         <IconTextView
             android:id="@+id/ic_max_notificaciones"
@@ -126,7 +126,7 @@
         android:layout_weight="0.34"
         android:focusable="true"
         android:clickable="true"
-        android:background="@drawable/selector_boton_transparente_a_oscuro">
+        android:background="@drawable/selector_boton_oscuro_transparente">
 
         <IconTextView
             android:id="@+id/ic_horario_habilitado"
