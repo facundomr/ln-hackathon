@@ -147,7 +147,7 @@ public class Preferencias {
         return new Date(sharedPreferences.getLong(FECHA_ULTIMA_NOTIFICACION, 0));
     }
 
-    public static void guardarFechaUltimaNotificacion(Context context, Date fecha) {
+    private static void guardarFechaUltimaNotificacion(Context context, Date fecha) {
 
         context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().putLong(FECHA_ULTIMA_NOTIFICACION, fecha.getTime()).apply();
     }
