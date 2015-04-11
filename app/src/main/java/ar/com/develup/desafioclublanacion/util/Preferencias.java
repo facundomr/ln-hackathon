@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,7 +24,8 @@ public class Preferencias {
     public static final String CATEGORIAS_NOTIFICACION = "CATEGORIAS_NOTIFICACION";
     public static final String DISTANCIA_MAXIMA = "DISTANCIA_MAXIMA";
     public static final String NOTIFICACIONES_MAXIMAS = "NOTIFICACIONES_MAXIMAS";
-    public static final String RANGO_HORARIO = "RANGO_HORARIO";
+    public static final String RANGO_HORARIO_DESDE = "RANGO_HORARIO_DESDE";
+    public static final String RANGO_HORARIO_HASTA = "RANGO_HORARIO_HASTA";
     private static final String BENEFICIOS_MOSTRADOS = "BENEFICIOS_MOSTRADOS";
     private static final String FECHA_ULTIMA_NOTIFICACION ="FECHA_ULTIMA_NOTIFICACION";
     private static final String CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS = "CANTIDAD_DE_NOTIFICACIONES_MOSTRADAS";
@@ -155,6 +157,54 @@ public class Preferencias {
     public static void borrarIdsBeneficiosMostrados(Context context) {
 
         context.getSharedPreferences(NOMBRE_PREFERENCIAS, Context.MODE_PRIVATE).edit().remove(BENEFICIOS_MOSTRADOS).commit();
+    }
+
+    public static void guardarNotificacionesDesde(Context context, Calendar calendar) {
+
+        String desde = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        guardar(context, RANGO_HORARIO_DESDE, desde);
+    }
+
+    public static void guardarNotificacionesHasta(Context context, Calendar calendar) {
+
+        String hasta = calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+        guardar(context, RANGO_HORARIO_HASTA, hasta);
+    }
+
+    public static Calendar getNotificacionesDesdeHora(Context context) {
+
+        String desdeString = obtenerString(context, RANGO_HORARIO_DESDE);
+        Calendar calendar = Calendar.getInstance();
+
+        if (desdeString.isEmpty()) {
+            calendar.set(Calendar.HOUR_OF_DAY, 10);
+            calendar.set(Calendar.MINUTE,0);
+        }
+        else {
+            String [] separado = desdeString.split(":");
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(separado[0]));
+            calendar.set(Calendar.MINUTE, Integer.valueOf(separado[1]));
+        }
+
+        return calendar;
+    }
+
+    public static Calendar getNotificacionesHastaHora(Context context) {
+
+        String desdeString = obtenerString(context, RANGO_HORARIO_HASTA);
+        Calendar calendar = Calendar.getInstance();
+
+        if (desdeString.isEmpty()) {
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE,0);
+        }
+        else {
+            String [] separado = desdeString.split(":");
+            calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(separado[0]));
+            calendar.set(Calendar.MINUTE, Integer.valueOf(separado[1]));
+        }
+
+        return calendar;
     }
 
     public static Integer getCantidadDeNotificacionesMostradas(Context context) {

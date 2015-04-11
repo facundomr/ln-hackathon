@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -50,7 +51,7 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
     private View.OnClickListener cambiarRangoHorario = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            mostrarDialogoRangoHorario();
         }
     };
 
@@ -100,6 +101,8 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
         distanciaMaxima = Preferencias.getDistanciaMaxima(getActivity());
         maximasNotificaciones = Preferencias.getMaximasNotificaciones(getActivity());
+        desdeHora = Preferencias.getNotificacionesDesdeHora(getActivity());
+        hastaHora = Preferencias.getNotificacionesHastaHora(getActivity());
 
         actualizarEnPantalla();
     }
@@ -108,7 +111,23 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
         this.valorDistanciaMaxima.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
         this.valorMaximasNotificaciones.setText(darFormatoMaximasNotificaciones(this.maximasNotificaciones));
+        this.valorRangoHorario.setText(darFormatoRangoHorario());
+    }
 
+    private String darFormatoRangoHorario() {
+        return desdeHora.get(Calendar.HOUR_OF_DAY) + ":" + darFormatoMinuto(desdeHora.get(Calendar.MINUTE)) + "hs. - " +
+                hastaHora.get(Calendar.HOUR_OF_DAY) + ":" + darFormatoMinuto(hastaHora.get(Calendar.MINUTE)) + "hs.";
+    }
+
+    private String darFormatoMinuto(Integer minuto) {
+
+        String formatoMinuto = minuto.toString();
+
+        if (minuto < 10) {
+            formatoMinuto = "0" + formatoMinuto;
+        }
+
+        return formatoMinuto;
     }
 
     private String darFormatoMaximasNotificaciones(Integer maximasNotificaciones) {
@@ -141,9 +160,9 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
     public void mostrarDialogoDistanciaMaxima() {
 
-        View preferencias = View.inflate(getActivity(), R.layout.layout_dialogo_distancia_maxima, null);
-        final SeekBar radioSeekBar = (SeekBar) preferencias.findViewById(R.id.radioSeekBar);
-        final TextView radioValue = (TextView) preferencias.findViewById(R.id.radio_value);
+        View viewDialogoDistanciaMaxima = View.inflate(getActivity(), R.layout.layout_dialogo_distancia_maxima, null);
+        final SeekBar radioSeekBar = (SeekBar) viewDialogoDistanciaMaxima.findViewById(R.id.radioSeekBar);
+        final TextView radioValue = (TextView) viewDialogoDistanciaMaxima.findViewById(R.id.radio_value);
         radioValue.setText(darFormatoDistanciaMaxima(this.distanciaMaxima));
         radioSeekBar.setMax(MAX_DISTANCIA);
         radioSeekBar.setProgress(distanciaMaxima.equals(Integer.MAX_VALUE) ? radioSeekBar.getMax() : distanciaMaxima - 1);
@@ -189,16 +208,16 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
                         actualizarEnPantalla();
                     }
                 })
-                .customView(preferencias, false);
+                .customView(viewDialogoDistanciaMaxima, false);
 
         builder.build().show();
     }
 
     public void mostrarDialogoMaximasNotificaciones() {
 
-        View preferencias = View.inflate(getActivity(), R.layout.layout_dialogo_maximas_notificaciones, null);
-        final SeekBar radioSeekBar = (SeekBar) preferencias.findViewById(R.id.notificacionesSeekBar);
-        final TextView notificacionesValue = (TextView) preferencias.findViewById(R.id.notificaciones_value);
+        View viewDialogoMaximasNotificaciones = View.inflate(getActivity(), R.layout.layout_dialogo_maximas_notificaciones, null);
+        final SeekBar radioSeekBar = (SeekBar) viewDialogoMaximasNotificaciones.findViewById(R.id.notificacionesSeekBar);
+        final TextView notificacionesValue = (TextView) viewDialogoMaximasNotificaciones.findViewById(R.id.notificaciones_value);
         notificacionesValue.setText(darFormatoMaximasNotificaciones(this.maximasNotificaciones));
         radioSeekBar.setMax(MAX_NOTIFICACIONES);
         radioSeekBar.setProgress(maximasNotificaciones.equals(Integer.MAX_VALUE) ? radioSeekBar.getMax() : maximasNotificaciones - 1);
@@ -244,7 +263,43 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
                         actualizarEnPantalla();
                     }
                 })
-                .customView(preferencias, false);
+                .customView(viewDialogoMaximasNotificaciones, false);
+
+        builder.build().show();
+    }
+
+    private void mostrarDialogoRangoHorario() {
+
+        View viewDialogoRangoHorario = View.inflate(getActivity(), R.layout.layout_dialogo_rango_horario, null);
+        final TimePicker desde = (TimePicker) viewDialogoRangoHorario.findViewById(R.id.timepicker_desde);
+        final TimePicker hasta = (TimePicker) viewDialogoRangoHorario.findViewById(R.id.timepicker_hasta);
+        desde.setIs24HourView(true);
+        hasta.setIs24HourView(true);
+        desde.setCurrentHour(desdeHora.get(Calendar.HOUR_OF_DAY));
+        desde.setCurrentMinute(desdeHora.get(Calendar.MINUTE));
+        hasta.setCurrentHour(hastaHora.get(Calendar.HOUR_OF_DAY));
+        hasta.setCurrentMinute(hastaHora.get(Calendar.MINUTE));
+
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(getActivity())
+                .positiveText(R.string.aceptar)
+                .positiveColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeColor(getResources().getColor(android.R.color.tertiary_text_dark))
+                .negativeText(getString(R.string.cancelar))
+                .callback(new MaterialDialog.ButtonCallback() {
+                    @Override
+                    public void onPositive(MaterialDialog dialog) {
+
+                        desdeHora.set(Calendar.HOUR_OF_DAY, desde.getCurrentHour());
+                        desdeHora.set(Calendar.MINUTE, desde.getCurrentMinute());
+
+                        hastaHora.set(Calendar.HOUR_OF_DAY, hasta.getCurrentHour());
+                        hastaHora.set(Calendar.MINUTE, hasta.getCurrentMinute());
+
+                        //TODO: Actualizar valores date picker
+                        actualizarEnPantalla();
+                    }
+                })
+                .customView(viewDialogoRangoHorario, true);
 
         builder.build().show();
     }
@@ -264,6 +319,8 @@ public class FragmentoConfiguracionExtra extends FragmentoConfiguracion {
 
         Preferencias.guardarDistanciaMaxima(getActivity(), this.distanciaMaxima);
         Preferencias.guardarNotificacionesMaximas(getActivity(), this.maximasNotificaciones);
+        Preferencias.guardarNotificacionesDesde(getActivity(), this.desdeHora);
+        Preferencias.guardarNotificacionesHasta(getActivity(), this.hastaHora);
     }
 
     @Override
