@@ -10,8 +10,10 @@ import java.util.List;
 import ar.com.develup.desafioclublanacion.R;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracion;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracionExtra;
+import ar.com.develup.desafioclublanacion.fragmentos.FragmentoConfiguracionTerminada;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoSeleccionCategoriasParaNotificar;
 import ar.com.develup.desafioclublanacion.fragmentos.FragmentoSeleccionTarjeta;
+import ar.com.develup.desafioclublanacion.util.Preferencias;
 
 /**
  * Created by mmaisano on 10/04/15.
@@ -23,6 +25,7 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
     private FragmentoSeleccionTarjeta fragmentoSeleccionTarjeta = new FragmentoSeleccionTarjeta();
     private FragmentoSeleccionCategoriasParaNotificar fragmentoSeleccionCategoriasParaNotificar = new FragmentoSeleccionCategoriasParaNotificar();
     private FragmentoConfiguracionExtra fragmentoConfiguracionExtra = new FragmentoConfiguracionExtra();
+    private FragmentoConfiguracionTerminada fragmentoConfiguracionTerminada = new FragmentoConfiguracionTerminada();
     private int indiceFragmentoActual;
     private View siguiente;
     private View anterior;
@@ -74,7 +77,15 @@ public class ActividadConfiguracionInicial extends ActividadBasica {
         fragmentos.add(fragmentoSeleccionTarjeta);
         fragmentos.add(fragmentoSeleccionCategoriasParaNotificar);
         fragmentos.add(fragmentoConfiguracionExtra);
+        fragmentos.add(fragmentoConfiguracionTerminada);
+
+        if(Preferencias.existeString(this, Preferencias.CATEGORIAS_NOTIFICACION) && Preferencias.existeString(this, Preferencias.TARJETA)) {
+
+            indiceFragmentoActual = 3;
+        }
+
         colocarFragmento(fragmentos.get(indiceFragmentoActual));
+
     }
 
     private void colocarFragmento(FragmentoConfiguracion fragmentoConfiguracion) {

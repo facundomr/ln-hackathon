@@ -84,7 +84,7 @@ public class FragmentoSeleccionTarjeta extends FragmentoConfiguracion {
     private void configurarFuentes() {
 
         Context context = getActivity();
-        FuentesUtil.aplicarFuente(HELVETICA_MEDIUM, (TextView) getView().findViewById(R.id.bienvenido_a), context);
+        FuentesUtil.aplicarFuente(HELVETICA_MEDIUM, (TextView) getView().findViewById(R.id.listo), context);
         FuentesUtil.aplicarFuente(HELVETICA_MEDIUM, (TextView) getView().findViewById(R.id.nombre_aplicacion), context);
         FuentesUtil.aplicarFuente(HELVETICA_LIGHT, (TextView) getView().findViewById(R.id.descripcion_aplicacion), context);
         FuentesUtil.aplicarFuente(HELVETICA_LIGHT, (TextView) getView().findViewById(R.id.selecciona_tarjetas), context);
