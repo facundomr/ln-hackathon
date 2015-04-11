@@ -293,7 +293,8 @@ public class ServicioDeBeneficiosCercanos extends Service {
 
         Intent mostrarBeneficio = new Intent(this, ActividadDetalleBeneficio.class);
         mostrarBeneficio.putExtra("idBeneficio", beneficio.getId());
-        PendingIntent notificationPendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, mostrarBeneficio, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent notificationPendingIntent = PendingIntent.getActivity(getApplicationContext(), (int) System.currentTimeMillis(),
+                                                                            mostrarBeneficio, PendingIntent.FLAG_CANCEL_CURRENT);
 
         String mensaje = "A sólo " + distancia + "! " + beneficio.getDetalle().getDescripcion();
 
