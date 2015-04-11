@@ -17,5 +17,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="radio_label">Radio</string>
     <string name="dialogo_maximas_notificaciones_titulo">Cantidad máxima de notificaciones diarias</string>
+    <string name="dialogo_rango_horario_titulo">Rango horario</string>
+    <string name="desde">DESDE:</string>
+    <string name="hasta">HASTA:</string>
 
 </resources>
